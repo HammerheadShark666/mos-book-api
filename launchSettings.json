@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "launchBrowser": true,
+      "launchUrl": "/swagger",
+      "serviceActions": {
+        "microservice.book.api": "StartDebugging"
+      }
+    }
+  }
+}

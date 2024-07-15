@@ -1,0 +1,27 @@
+syntax = "proto3";
+ 
+option csharp_namespace = "Microservice.Book.Api.Protos";
+
+package Books; 
+
+service BookGrpc {
+    rpc GetBooks (ListBookRequest) returns (ListBookResponse);
+}
+
+message BookRequest {
+    string id = 1;
+}
+
+message ListBookRequest {
+    repeated BookRequest bookRequests = 1;
+}
+
+message BookResponse {
+    string id = 1;
+    string name = 2;
+    string unitPrice = 3;
+}
+
+message ListBookResponse {
+    repeated BookResponse bookResponses = 1;
+}

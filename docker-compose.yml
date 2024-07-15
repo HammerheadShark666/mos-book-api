@@ -1,0 +1,25 @@
+version: '3.4'
+
+services:
+  microservice.book.api:
+    container_name: microservice.book.api
+    image: ${DOCKER_REGISTRY-}microservicebookapi
+    build:
+      context: .
+      dockerfile: Microservice.Book.Api/Dockerfile
+    ports: 
+      - "22000:8080"
+      - "22001:8081"
+    environment: 
+        ASPNETCORE_ENVIRONMENT: Development
+        ASPNETCORE_URLS: https://+:8081;http://+:8080
+        ASPNETCORE_HTTPS_PORT: 8081   
+        JWT_ISSUER: ${JWT_ISSUER}
+        JWT_AUDIENCE: ${JWT_AUDIENCE}
+        JWT_SYMMETRIC_SECURITY_KEY: ${JWT_SYMMETRIC_SECURITY_KEY} 
+    networks:
+      - ms-order-system   
+  
+networks:
+  ms-order-system: 
+    external: true
