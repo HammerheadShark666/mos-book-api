@@ -38,7 +38,7 @@ public static class Endpoints
 
         bookGroup.MapGet("/title/{criteria}", async ([FromRoute] string criteria, [FromServices] IMediator mediator) => {
             var searchBookTitleResponse = await mediator.Send(new SearchBookTitleRequest(criteria));
-            return Results.Ok(searchBookTitleResponse);
+            return Results.Ok(searchBookTitleResponse.Books);
         })
         .Accepts<SearchBookTitleRequest>("application/json")
         .Produces<SearchBookTitleResponse>((int)HttpStatusCode.OK)
