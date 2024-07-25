@@ -10,6 +10,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{134F64D1-870F-4503-83B3-5545B311BA7D}"
 	ProjectSection(SolutionItems) = preProject
 		.env = .env
+		PostmanCollections\mos-book-api.postman_globals = PostmanCollections\mos-book-api.postman_globals
+		PostmanCollections\MOS_Book_Api_V1_postman_collection.json = PostmanCollections\MOS_Book_Api_V1_postman_collection.json
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.Book.Api.Test.Unit", "Microservice.Book.Api.Test.Unit\Microservice.Book.Api.Test.Unit.csproj", "{6210B090-5787-4DC6-ADA2-2AC5C2C4D944}"

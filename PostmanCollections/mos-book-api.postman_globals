@@ -1,0 +1,63 @@
+{
+	"id": "101d2821-37b8-4d0c-8727-0f66b7c5e15f",
+	"values": [
+		{
+			"key": "logged_in_schema",
+			"value": "{\"type\":\"object\",\"properties\":{\"jwtToken\":{\"type\":\"string\"}},\"required\":[\"jwtToken\"]}",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "logged_in_schema_fail",
+			"value": "{\"type\":\"object\",\"properties\":{\"status\":{\"type\":\"integer\"},\"detail\":{\"type\":\"string\"},\"errors\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}}},\"required\":[\"status\",\"detail\",\"errors\"]}",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "book_schema",
+			"value": "{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"title\":{\"type\":\"string\"},\"isbn\":{\"type\":[\"string\",\"null\"]},\"author\":{\"type\":\"string\"},\"publisher\":{\"type\":[\"string\",\"null\"]},\"series\":{\"type\":[\"string\",\"null\"]},\"summary\":{\"type\":[\"string\",\"null\"]},\"condition\":{\"type\":\"string\"},\"numberInStock\":{\"type\":\"integer\"},\"price\":{\"type\":\"number\"},\"discount\":{\"type\":\"number\"},\"discountType\":{\"type\":[\"string\",\"null\"]}},\"required\":[\"id\",\"title\",\"author\",\"condition\"]}",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "books_schema",
+			"value": "{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"title\":{\"type\":\"string\"},\"isbn\":{\"type\":[\"string\",\"null\"]},\"author\":{\"type\":\"string\"},\"publisher\":{\"type\":[\"string\",\"null\"]},\"series\":{\"type\":[\"string\",\"null\"]},\"summary\":{\"type\":[\"string\",\"null\"]},\"condition\":{\"type\":\"string\"},\"numberInStock\":{\"type\":\"integer\"},\"price\":{\"type\":\"number\"},\"discount\":{\"type\":[\"number\",\"null\"]},\"discountType\":{\"type\":[\"string\",\"null\"]}},\"required\":[\"id\",\"title\",\"isbn\",\"author\",\"publisher\",\"series\",\"summary\",\"condition\",\"numberInStock\",\"price\"]}}",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "book_add_schema",
+			"value": "{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"}},\"required\":[\"id\"]}",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "book_add_schema_fail",
+			"value": "{\"type\":\"object\",\"properties\":{\"status\":{\"type\":\"integer\"},\"detail\":{\"type\":\"string\"},\"errors\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}}},\"required\":[\"status\",\"detail\",\"errors\"]}",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "book_updated_schema",
+			"value": "{\"type\":\"object\",\"properties\":{\"message\":{\"type\":\"string\"}},\"required\":[\"message\"]}",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "book_updated_schema_fail",
+			"value": "{\"type\":\"object\",\"properties\":{\"status\":{\"type\":\"integer\"},\"detail\":{\"type\":\"string\"},\"errors\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}}},\"required\":[\"status\",\"detail\",\"errors\"]}",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "book_delete_schema_fail",
+			"value": "{\"type\":\"object\",\"properties\":{\"status\":{\"type\":\"integer\"},\"detail\":{\"type\":\"string\"}},\"required\":[\"status\",\"detail\"]}",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"name": "Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2024-07-25T14:36:10.626Z",
+	"_postman_exported_using": "Postman/11.5.0"
+}
