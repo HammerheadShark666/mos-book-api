@@ -41,48 +41,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"username\": \"2119-user@example.com\",\r\n  \"password\": \"Password#1\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "https://{{authorization_url}}/api/v1/login"
-					},
-					"response": []
-				},
-				{
-					"name": "{{authorization_url}}/api/{version}login (Fail)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "0dc42615-78d0-4ede-bb9c-440612134b92",
-								"exec": [
-									"pm.test(\"Status code is 400\", function () {\r",
-									"    pm.response.to.have.status(400);\r",
-									"});  \r",
-									"\r",
-									"pm.test('Schema validation', () => {\r",
-									"    pm.response.to.have.jsonSchema (JSON.parse(pm.globals.get(\"logged_in_schema_fail\")));\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"id": "fa7bb487-cd2d-46a1-9d73-86083cd04122",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"username\": \"2119-user@fail.com\",\r\n  \"password\": \"Password#1\"\r\n}",
+							"raw": "{\r\n  \"username\": \"{{username}}\",\r\n  \"password\": \"{{password}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
