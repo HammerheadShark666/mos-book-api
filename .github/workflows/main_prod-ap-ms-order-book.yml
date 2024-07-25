@@ -62,4 +62,4 @@ jobs:
         run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
       - name: Run API tests
         run: |
-          postman collection run "${{ github.workspace }}/PostmanCollections/MOS_Book_Api_V1_postman_collection.json" -e "6b8cd4ba-9f28-4090-ad1e-b6d01a81170b" --integration-id "165236-${{ github.run_id }}"
+          postman collection run "${{ github.workspace }}/PostmanCollections/MOS_Book_Api_V1_postman_collection.json" -g "${{ github.workspace }}/PostmanCollections/mos-book-api.postman_globals" -e "6b8cd4ba-9f28-4090-ad1e-b6d01a81170b" --integration-id "165236-${{ github.run_id }}"
