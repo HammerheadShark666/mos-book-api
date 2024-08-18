@@ -9,7 +9,7 @@
 			"name": "Authorization",
 			"item": [
 				{
-					"name": "{{authorization_url}}/api/{version}login",
+					"name": "{{authorization_url}}/{version}login",
 					"event": [
 						{
 							"listen": "test",
@@ -48,7 +48,7 @@
 								}
 							}
 						},
-						"url": "https://{{authorization_url}}/api/v1/login"
+						"url": "https://{{authorization_url}}/v1/login"
 					},
 					"response": []
 				}
@@ -59,7 +59,7 @@
 			"name": "Book",
 			"item": [
 				{
-					"name": "{{book_url}}/api/v1/book/title/and (Success)",
+					"name": "{{book_url}}/v1/books/title/and (Success)",
 					"event": [
 						{
 							"listen": "test",
@@ -99,12 +99,12 @@
 								"type": "text"
 							}
 						],
-						"url": "https://{{book_url}}/api/v1/book/title/and"
+						"url": "https://{{book_url}}/v1/books/title/and"
 					},
 					"response": []
 				},
 				{
-					"name": "{{book_url}}/api/v1/book/add (Success)",
+					"name": "{{book_url}}/v1/books/add (Success)",
 					"event": [
 						{
 							"listen": "test",
@@ -148,7 +148,7 @@
 								}
 							}
 						},
-						"url": "https://{{book_url}}/api/v1/book/add"
+						"url": "https://{{book_url}}/v1/books/add"
 					},
 					"response": []
 				},
