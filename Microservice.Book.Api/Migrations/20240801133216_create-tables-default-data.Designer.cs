@@ -12,15 +12,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Microservice.Book.Api.Migrations
 {
     [DbContext(typeof(BookDbContext))]
-    [Migration("20240422161452_create-tables")]
-    partial class createtables
+    [Migration("20240801133216_create-tables-default-data")]
+    partial class createtablesdefaultdata
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("BookVersion", "8.0.4")
+                .HasAnnotation("ProductVersion", "8.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -134,7 +134,7 @@ namespace Microservice.Book.Api.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal?>("Discount")
-                        .HasColumnType("decimal(19, 4)");
+                        .HasColumnType("decimal(19, 2)");
 
                     b.Property<int?>("DiscountTypeId")
                         .HasColumnType("int");
@@ -146,16 +146,11 @@ namespace Microservice.Book.Api.Migrations
                     b.Property<DateTime>("LastUpdated")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
-
                     b.Property<int?>("NumberInStock")
                         .HasColumnType("int");
 
                     b.Property<decimal?>("Price")
-                        .HasColumnType("decimal(19, 4)");
+                        .HasColumnType("decimal(19, 2)");
 
                     b.Property<int?>("PublisherId")
                         .HasColumnType("int");
@@ -166,6 +161,11 @@ namespace Microservice.Book.Api.Migrations
                     b.Property<string>("Summary")
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.HasKey("Id");
 
@@ -185,147 +185,147 @@ namespace Microservice.Book.Api.Migrations
                             Id = new Guid("07c06c3f-0897-44b6-ae05-a70540e73a12"),
                             AuthorId = new Guid("c95ba8ff-06a1-49d0-bc45-83f89b3ce820"),
                             Condition = "New",
-                            Created = new DateTime(2024, 4, 22, 17, 14, 51, 587, DateTimeKind.Local).AddTicks(8859),
+                            Created = new DateTime(2024, 8, 1, 14, 32, 14, 917, DateTimeKind.Local).AddTicks(3109),
                             ISBN = "9780063376120",
-                            LastUpdated = new DateTime(2024, 4, 22, 17, 14, 51, 587, DateTimeKind.Local).AddTicks(8862),
-                            Name = "Infinity Son",
+                            LastUpdated = new DateTime(2024, 8, 1, 14, 32, 14, 917, DateTimeKind.Local).AddTicks(3111),
                             NumberInStock = 50,
                             Price = 7.50m,
                             PublisherId = 3,
                             SeriesId = 2,
-                            Summary = "Growing up in New York, brothers Emil and Brighton always idolized the Spell Walkers—a vigilante group sworn to rid the world of specters. While the Spell Walkers and other celestials are born with powers, specters take them, violently stealing the essence of endangered magical creatures."
+                            Summary = "Growing up in New York, brothers Emil and Brighton always idolized the Spell Walkers—a vigilante group sworn to rid the world of specters. While the Spell Walkers and other celestials are born with powers, specters take them, violently stealing the essence of endangered magical creatures.",
+                            Title = "Infinity Son"
                         },
                         new
                         {
                             Id = new Guid("6131ce7e-fb11-4608-a3d3-f01caee2c465"),
                             AuthorId = new Guid("c95ba8ff-06a1-49d0-bc45-83f89b3ce820"),
                             Condition = "New",
-                            Created = new DateTime(2024, 4, 22, 17, 14, 51, 587, DateTimeKind.Local).AddTicks(8881),
+                            Created = new DateTime(2024, 8, 1, 14, 32, 14, 917, DateTimeKind.Local).AddTicks(3119),
                             ISBN = "9780062882318",
-                            LastUpdated = new DateTime(2024, 4, 22, 17, 14, 51, 587, DateTimeKind.Local).AddTicks(8884),
-                            Name = "Infinity Reaper",
+                            LastUpdated = new DateTime(2024, 8, 1, 14, 32, 14, 917, DateTimeKind.Local).AddTicks(3121),
                             NumberInStock = 34,
                             Price = 8.50m,
                             PublisherId = 3,
                             SeriesId = 2,
-                            Summary = "Emil and Brighton Rey defied the odds. They beat the Blood Casters and escaped with their lives–or so they thought. When Brighton drank the Reaper’s Blood, he believed it would make him invincible, but instead the potion is killing him."
+                            Summary = "Emil and Brighton Rey defied the odds. They beat the Blood Casters and escaped with their lives–or so they thought. When Brighton drank the Reaper’s Blood, he believed it would make him invincible, but instead the potion is killing him.",
+                            Title = "Infinity Reaper"
                         },
                         new
                         {
                             Id = new Guid("29a75938-ce2d-473b-b7fe-2903fe97fd6e"),
                             AuthorId = new Guid("c95ba8ff-06a1-49d0-bc45-83f89b3ce820"),
                             Condition = "New",
-                            Created = new DateTime(2024, 4, 22, 17, 14, 51, 587, DateTimeKind.Local).AddTicks(8897),
+                            Created = new DateTime(2024, 8, 1, 14, 32, 14, 917, DateTimeKind.Local).AddTicks(3129),
                             ISBN = "9781398504974",
-                            LastUpdated = new DateTime(2024, 4, 22, 17, 14, 51, 587, DateTimeKind.Local).AddTicks(8900),
-                            Name = "Infinity Kings",
+                            LastUpdated = new DateTime(2024, 8, 1, 14, 32, 14, 917, DateTimeKind.Local).AddTicks(3130),
                             NumberInStock = 23,
                             Price = 9.99m,
                             PublisherId = 3,
                             SeriesId = 2,
-                            Summary = "After the ultimate betrayal, Emil must rise up as a leader to stop his brother, Brighton, before he becomes too powerful. Even if that means pushing away Ness and Wyatt as they compete for his heart so he can focus on the war."
+                            Summary = "After the ultimate betrayal, Emil must rise up as a leader to stop his brother, Brighton, before he becomes too powerful. Even if that means pushing away Ness and Wyatt as they compete for his heart so he can focus on the war.",
+                            Title = "Infinity Kings"
                         },
                         new
                         {
                             Id = new Guid("23608dce-2142-4d2b-b909-948316b5efaf"),
                             AuthorId = new Guid("ae55b0d1-ba02-41e1-9efa-9b4d4ac15eec"),
                             Condition = "Used",
-                            Created = new DateTime(2024, 4, 22, 17, 14, 51, 587, DateTimeKind.Local).AddTicks(8914),
+                            Created = new DateTime(2024, 8, 1, 14, 32, 14, 917, DateTimeKind.Local).AddTicks(3137),
                             ISBN = "9781442472433",
-                            LastUpdated = new DateTime(2024, 4, 22, 17, 14, 51, 587, DateTimeKind.Local).AddTicks(8916),
-                            Name = "Scythe",
+                            LastUpdated = new DateTime(2024, 8, 1, 14, 32, 14, 917, DateTimeKind.Local).AddTicks(3138),
                             NumberInStock = 1,
                             Price = 3.50m,
                             PublisherId = 1,
                             SeriesId = 1,
-                            Summary = "A world with no hunger, no disease, no war, no misery: humanity has conquered all those things, and has even conquered death. Now Scythes are the only ones who can end life—and they are commanded to do so, in order to keep the size of the population under control."
+                            Summary = "A world with no hunger, no disease, no war, no misery: humanity has conquered all those things, and has even conquered death. Now Scythes are the only ones who can end life—and they are commanded to do so, in order to keep the size of the population under control.",
+                            Title = "Scythe"
                         },
                         new
                         {
                             Id = new Guid("f3fcab1f-1c11-47f5-9e11-7868a88408e6"),
                             AuthorId = new Guid("ae55b0d1-ba02-41e1-9efa-9b4d4ac15eec"),
                             Condition = "Used",
-                            Created = new DateTime(2024, 4, 22, 17, 14, 51, 587, DateTimeKind.Local).AddTicks(8930),
+                            Created = new DateTime(2024, 8, 1, 14, 32, 14, 917, DateTimeKind.Local).AddTicks(3144),
                             ISBN = "9781442472457",
-                            LastUpdated = new DateTime(2024, 4, 22, 17, 14, 51, 587, DateTimeKind.Local).AddTicks(8933),
-                            Name = "Thunderhead",
+                            LastUpdated = new DateTime(2024, 8, 1, 14, 32, 14, 917, DateTimeKind.Local).AddTicks(3146),
                             NumberInStock = 3,
                             Price = 2.5m,
                             PublisherId = 1,
                             SeriesId = 1,
-                            Summary = "The Thunderhead is the perfect ruler of a perfect world, but it has no control over the scythedom. A year has passed since Rowan had gone off grid. Since then, he has become an urban legend, a vigilante snuffing out corrupt scythes in a trial by fire. His story is told in whispers across the continent."
+                            Summary = "The Thunderhead is the perfect ruler of a perfect world, but it has no control over the scythedom. A year has passed since Rowan had gone off grid. Since then, he has become an urban legend, a vigilante snuffing out corrupt scythes in a trial by fire. His story is told in whispers across the continent.",
+                            Title = "Thunderhead"
                         },
                         new
                         {
                             Id = new Guid("ecf65c56-5670-473b-9f20-fb0b191c2f0f"),
                             AuthorId = new Guid("5ff79dfe-c1fa-4dd9-996f-bc96649d6dfc"),
                             Condition = "New",
-                            Created = new DateTime(2024, 4, 22, 17, 14, 51, 587, DateTimeKind.Local).AddTicks(8948),
+                            Created = new DateTime(2024, 8, 1, 14, 32, 14, 917, DateTimeKind.Local).AddTicks(3154),
                             ISBN = "9781526680266",
-                            LastUpdated = new DateTime(2024, 4, 22, 17, 14, 51, 587, DateTimeKind.Local).AddTicks(8951),
-                            Name = "Saltblood",
+                            LastUpdated = new DateTime(2024, 8, 1, 14, 32, 14, 917, DateTimeKind.Local).AddTicks(3156),
                             NumberInStock = 30,
                             Price = 15.99m,
                             PublisherId = 4,
-                            Summary = "Reimagining the life of groundbreaking seventeenth-century woman pirate Mary Read, de Tores' dynamic debut entwines themes of gender and survival into a rollicking period adventure story."
+                            Summary = "Reimagining the life of groundbreaking seventeenth-century woman pirate Mary Read, de Tores' dynamic debut entwines themes of gender and survival into a rollicking period adventure story.",
+                            Title = "Saltblood"
                         },
                         new
                         {
                             Id = new Guid("285c81bc-f257-4ffb-b6ce-7ab5fa9e5c81"),
                             AuthorId = new Guid("ff4d5a80-81e3-42e3-8052-92cf5c51e797"),
                             Condition = "New",
-                            Created = new DateTime(2024, 4, 22, 17, 14, 51, 587, DateTimeKind.Local).AddTicks(8964),
+                            Created = new DateTime(2024, 8, 1, 14, 32, 14, 917, DateTimeKind.Local).AddTicks(3162),
                             ISBN = "9781398529687",
-                            LastUpdated = new DateTime(2024, 4, 22, 17, 14, 51, 587, DateTimeKind.Local).AddTicks(8967),
-                            Name = "Skandar and the Chaos Trials",
+                            LastUpdated = new DateTime(2024, 8, 1, 14, 32, 14, 917, DateTimeKind.Local).AddTicks(3164),
                             NumberInStock = 20,
                             Price = 12.99m,
                             PublisherId = 1,
-                            Summary = "More heart-pounding adventures lie in wait for Skandar Smith in the third instalment of Steadman's blockbuster children's fantasy saga, as the friends must take part in a series of dangerous challenges across the island."
+                            Summary = "More heart-pounding adventures lie in wait for Skandar Smith in the third instalment of Steadman's blockbuster children's fantasy saga, as the friends must take part in a series of dangerous challenges across the island.",
+                            Title = "Skandar and the Chaos Trials"
                         },
                         new
                         {
                             Id = new Guid("01f54aa7-c51a-4b92-a72b-68e0965bf246"),
                             AuthorId = new Guid("47417642-87d9-4047-ae13-4c721d99ab48"),
                             Condition = "New",
-                            Created = new DateTime(2024, 4, 22, 17, 14, 51, 587, DateTimeKind.Local).AddTicks(9022),
+                            Created = new DateTime(2024, 8, 1, 14, 32, 14, 917, DateTimeKind.Local).AddTicks(3171),
                             ISBN = "2928377225186",
-                            LastUpdated = new DateTime(2024, 4, 22, 17, 14, 51, 587, DateTimeKind.Local).AddTicks(9025),
-                            Name = "Funny Story",
+                            LastUpdated = new DateTime(2024, 8, 1, 14, 32, 14, 917, DateTimeKind.Local).AddTicks(3172),
                             NumberInStock = 20,
                             Price = 11.99m,
                             PublisherId = 5,
-                            Summary = "From the bestselling author of Happy Place and Book Lovers comes another witty and romantic tale, as two wronged exes hatch a plan to make their former partners' lives hell."
+                            Summary = "From the bestselling author of Happy Place and Book Lovers comes another witty and romantic tale, as two wronged exes hatch a plan to make their former partners' lives hell.",
+                            Title = "Funny Story"
                         },
                         new
                         {
                             Id = new Guid("6b85f863-7991-4f93-bf86-8c756fdeac87"),
                             AuthorId = new Guid("55b431ff-693e-4664-8f65-cfd8d0b14b1b"),
                             Condition = "New",
-                            Created = new DateTime(2024, 4, 22, 17, 14, 51, 587, DateTimeKind.Local).AddTicks(9039),
+                            Created = new DateTime(2024, 8, 1, 14, 32, 14, 917, DateTimeKind.Local).AddTicks(3179),
                             Discount = 10.0m,
                             DiscountTypeId = 1,
                             ISBN = "9780715655009",
-                            LastUpdated = new DateTime(2024, 4, 22, 17, 14, 51, 587, DateTimeKind.Local).AddTicks(9042),
-                            Name = "Fall of Civilizations: Stories of Greatness and Decline",
+                            LastUpdated = new DateTime(2024, 8, 1, 14, 32, 14, 917, DateTimeKind.Local).AddTicks(3180),
                             NumberInStock = 10,
                             Price = 15.99m,
                             PublisherId = 6,
-                            Summary = "Ranging from Mesopotamia to Roman Britain, Cooper's engrossing volume – based on his hit history podcast – charts the rise and decline of several ancient civilizations."
+                            Summary = "Ranging from Mesopotamia to Roman Britain, Cooper's engrossing volume – based on his hit history podcast – charts the rise and decline of several ancient civilizations.",
+                            Title = "Fall of Civilizations: Stories of Greatness and Decline"
                         },
                         new
                         {
                             Id = new Guid("37544155-da95-49e8-b7fe-3c937eb1de98"),
                             AuthorId = new Guid("aa1dc96f-3be5-41cd-8a1b-207284af3fdd"),
                             Condition = "New",
-                            Created = new DateTime(2024, 4, 22, 17, 14, 51, 587, DateTimeKind.Local).AddTicks(9058),
+                            Created = new DateTime(2024, 8, 1, 14, 32, 14, 917, DateTimeKind.Local).AddTicks(3188),
                             ISBN = "9780349441634",
-                            LastUpdated = new DateTime(2024, 4, 22, 17, 14, 51, 587, DateTimeKind.Local).AddTicks(9060),
-                            Name = "Wild Love",
+                            LastUpdated = new DateTime(2024, 8, 1, 14, 32, 14, 917, DateTimeKind.Local).AddTicks(3189),
                             NumberInStock = 10,
                             Price = 9.99m,
                             PublisherId = 7,
-                            Summary = "Pure romantic escapism from the author of the Chestnut Springs series, as the 'world's hottest billionaire' unexpectedly finds himself a new parent whilst trying to keep his hands off his best friend's little sister."
+                            Summary = "Pure romantic escapism from the author of the Chestnut Springs series, as the 'world's hottest billionaire' unexpectedly finds himself a new parent whilst trying to keep his hands off his best friend's little sister.",
+                            Title = "Wild Love"
                         });
                 });
 

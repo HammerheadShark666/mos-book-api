@@ -17,7 +17,7 @@ public static class Endpoints
 {
     public static void ConfigureRoutes(this WebApplication app, ConfigurationManager configuration)
     {
-        var bookGroup = app.MapGroup("api/v{version:apiVersion}/book").WithTags("book");
+        var bookGroup = app.MapGroup("v{version:apiVersion}/books").WithTags("book");
 
         bookGroup.MapGet("/{id}", async ([FromRoute] Guid id, [FromServices] IMediator mediator) => {
             var getBookResponse = await mediator.Send(new GetBookRequest(id));
