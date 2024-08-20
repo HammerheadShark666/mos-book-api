@@ -1,6 +1,5 @@
 using Microservice.Book.Api.Endpoints;
 using Microservice.Book.Api.Extensions;
-using Microservice.Book.Api.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,7 +29,7 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-app.UseMiddleware<ExceptionHandlingMiddleware>(); 
+app.ConfigureMiddleware(); 
 
 Endpoints.ConfigureRoutes(app, builder.Configuration);
 

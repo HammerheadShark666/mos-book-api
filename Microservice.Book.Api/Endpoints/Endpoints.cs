@@ -1,4 +1,5 @@
 ﻿using Asp.Versioning;
+using FluentValidation;
 using MediatR;
 using Microservice.Book.Api.Extensions;
 using Microservice.Book.Api.Helpers.Exceptions;
@@ -25,6 +26,7 @@ public static class Endpoints
         }) 
         .Produces<GetBookResponse>((int)HttpStatusCode.OK)
         .Produces<BadRequestException>((int)HttpStatusCode.BadRequest)
+        .Produces<NotFoundException>((int)HttpStatusCode.NotFound)
         .WithName("GetBook")
         .WithApiVersionSet(app.GetApiVersionSet())
         .MapToApiVersion(new ApiVersion(1, 0))
@@ -43,6 +45,7 @@ public static class Endpoints
         .Accepts<SearchBookTitleRequest>("application/json")
         .Produces<SearchBookTitleResponse>((int)HttpStatusCode.OK)
         .Produces<BadRequestException>((int)HttpStatusCode.BadRequest)
+        .Produces<NotFoundException>((int)HttpStatusCode.NotFound)
         .WithName("SearchBookTitle")
         .WithApiVersionSet(app.GetApiVersionSet())
         .MapToApiVersion(new ApiVersion(1, 0))
@@ -61,6 +64,8 @@ public static class Endpoints
         .Accepts<AddBookRequest>("application/json")
         .Produces<AddBookResponse>((int)HttpStatusCode.OK)
         .Produces<BadRequestException>((int)HttpStatusCode.BadRequest)
+        .Produces<ValidationException>((int)HttpStatusCode.BadRequest)
+        .Produces<ArgumentException>((int)HttpStatusCode.BadRequest) 
         .WithName("AddBook")
         .WithApiVersionSet(app.GetApiVersionSet())
         .MapToApiVersion(new ApiVersion(1, 0))
@@ -79,6 +84,9 @@ public static class Endpoints
         .Accepts<UpdateBookRequest>("application/json")
         .Produces<UpdateBookResponse>((int)HttpStatusCode.OK)
         .Produces<BadRequestException>((int)HttpStatusCode.BadRequest)
+        .Produces<ValidationException>((int)HttpStatusCode.BadRequest)
+        .Produces<ArgumentException>((int)HttpStatusCode.BadRequest)
+        .Produces<NotFoundException>((int)HttpStatusCode.NotFound)
         .WithName("UpdateBook")
         .WithApiVersionSet(app.GetApiVersionSet())
         .MapToApiVersion(new ApiVersion(1, 0))
@@ -97,6 +105,8 @@ public static class Endpoints
         .Accepts<DeleteBookRequest>("application/json")
         .Produces((int)HttpStatusCode.OK)
         .Produces<BadRequestException>((int)HttpStatusCode.BadRequest)
+        .Produces<ValidationException>((int)HttpStatusCode.BadRequest) 
+        .Produces<NotFoundException>((int)HttpStatusCode.NotFound)
         .WithName("DeleteBook")
         .WithApiVersionSet(app.GetApiVersionSet())
         .MapToApiVersion(new ApiVersion(1, 0))
