@@ -2,9 +2,7 @@
 	"info": {
 		"_postman_id": "6cdfb948-4f2c-498e-bccf-a9883dafe6a4",
 		"name": "Api",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "4654363",
-		"_collection_link": "https://jwm-demo-team.postman.co/workspace/MOS-Book-Api~c05d20e2-c399-450e-a683-d64fedc1cd80/collection/4654363-6cdfb948-4f2c-498e-bccf-a9883dafe6a4?action=share&source=collection_link&creator=4654363"
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
@@ -16,6 +14,7 @@
 						{
 							"listen": "test",
 							"script": {
+								"id": "0dc42615-78d0-4ede-bb9c-440612134b92",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
@@ -33,6 +32,10 @@
 							}
 						}
 					],
+					"id": "57c6de7c-5962-42e6-b170-2a70cfe7245a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -45,21 +48,12 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "https://{{authorization_url}}/v1/login",
-							"protocol": "https",
-							"host": [
-								"{{authorization_url}}"
-							],
-							"path": [
-								"v1",
-								"login"
-							]
-						}
+						"url": "https://{{authorization_url}}/v1/login"
 					},
 					"response": []
 				}
-			]
+			],
+			"id": "59e3759d-92d0-4a01-a35e-24e772d03243"
 		},
 		{
 			"name": "Book",
@@ -70,6 +64,7 @@
 						{
 							"listen": "test",
 							"script": {
+								"id": "93b3732b-d16d-46f6-bf8d-abd7b772050d",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
@@ -91,6 +86,10 @@
 							}
 						}
 					],
+					"id": "acef6d3d-bf7f-4284-b4b6-9c55cc1d13d4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -100,19 +99,7 @@
 								"type": "text"
 							}
 						],
-						"url": {
-							"raw": "https://{{book_url}}/v1/books/title/and",
-							"protocol": "https",
-							"host": [
-								"{{book_url}}"
-							],
-							"path": [
-								"v1",
-								"books",
-								"title",
-								"and"
-							]
-						}
+						"url": "https://{{book_url}}/v1/books/title/and"
 					},
 					"response": []
 				},
@@ -122,6 +109,7 @@
 						{
 							"listen": "test",
 							"script": {
+								"id": "774cb3ce-9dc6-4ef6-b697-3599c254eb62",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
@@ -139,6 +127,10 @@
 							}
 						}
 					],
+					"id": "530594ce-77bb-4c4c-9ce7-f09d11f1dea2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -156,18 +148,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "https://{{book_url}}/v1/books/add",
-							"protocol": "https",
-							"host": [
-								"{{book_url}}"
-							],
-							"path": [
-								"v1",
-								"books",
-								"add"
-							]
-						}
+						"url": "https://{{book_url}}/v1/books/add"
 					},
 					"response": []
 				},
@@ -177,6 +158,7 @@
 						{
 							"listen": "test",
 							"script": {
+								"id": "774cb3ce-9dc6-4ef6-b697-3599c254eb62",
 								"exec": [
 									"pm.test(\"Status code is 400\", function () {\r",
 									"    pm.response.to.have.status(400);\r",
@@ -191,6 +173,10 @@
 							}
 						}
 					],
+					"id": "091d587a-ee11-4350-91f0-5a80065c482c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -208,18 +194,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "https://{{book_url}}/v1/books/add",
-							"protocol": "https",
-							"host": [
-								"{{book_url}}"
-							],
-							"path": [
-								"v1",
-								"books",
-								"add"
-							]
-						}
+						"url": "https://{{book_url}}/v1/books/add"
 					},
 					"response": []
 				},
@@ -229,13 +204,14 @@
 						{
 							"listen": "test",
 							"script": {
+								"id": "e6f203a2-7ef7-47ad-a4c2-423158949ddc",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
 									"}); \r",
 									"\r",
 									"pm.test('Schema validation', () => {\r",
-									"  pm.response.to.have.jsonSchema (JSON.parse(pm.globals.get('book_schema')));\r",
+									"  pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get('book_schema')));\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Has correct title\", function () {\r",
@@ -248,6 +224,10 @@
 							}
 						}
 					],
+					"id": "7e7bcd1a-3706-44d8-937c-65dd9e8c8c27",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -257,18 +237,7 @@
 								"type": "text"
 							}
 						],
-						"url": {
-							"raw": "https://{{book_url}}/v1/books/{{bookId}}",
-							"protocol": "https",
-							"host": [
-								"{{book_url}}"
-							],
-							"path": [
-								"v1",
-								"books",
-								"{{bookId}}"
-							]
-						}
+						"url": "https://{{book_url}}/v1/books/{{bookId}}"
 					},
 					"response": []
 				},
@@ -278,13 +247,14 @@
 						{
 							"listen": "test",
 							"script": {
+								"id": "1d771126-0ee9-4161-be07-b29506c4a22c",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
 									" \r",
 									"pm.test('Schema validation', () => {\r",
-									"    pm.response.to.have.jsonSchema (JSON.parse(pm.globals.get(\"book_updated_schema\")));\r",
+									"    pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get(\"book_updated_schema\")));\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -292,6 +262,10 @@
 							}
 						}
 					],
+					"id": "99515b9b-67ec-4ee5-b4b8-c199b5fec3b9",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -309,18 +283,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "https://{{book_url}}/v1/books/update",
-							"protocol": "https",
-							"host": [
-								"{{book_url}}"
-							],
-							"path": [
-								"v1",
-								"books",
-								"update"
-							]
-						}
+						"url": "https://{{book_url}}/v1/books/update"
 					},
 					"response": []
 				},
@@ -330,13 +293,14 @@
 						{
 							"listen": "test",
 							"script": {
+								"id": "1d771126-0ee9-4161-be07-b29506c4a22c",
 								"exec": [
 									"pm.test(\"Status code is 400\", function () {\r",
 									"    pm.response.to.have.status(400);\r",
 									"});\r",
 									" \r",
 									"pm.test('Schema validation', () => {\r",
-									"    pm.response.to.have.jsonSchema (JSON.parse(pm.globals.get(\"book_updated_schema_fail\")));\r",
+									"    pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get(\"book_updated_schema_fail\")));\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -344,6 +308,10 @@
 							}
 						}
 					],
+					"id": "9bf3dd44-1804-4fd8-ac11-39b2716d1e6f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -361,18 +329,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "https://{{book_url}}/v1/books/update",
-							"protocol": "https",
-							"host": [
-								"{{book_url}}"
-							],
-							"path": [
-								"v1",
-								"books",
-								"update"
-							]
-						}
+						"url": "https://{{book_url}}/v1/books/update"
 					},
 					"response": []
 				},
@@ -382,6 +339,7 @@
 						{
 							"listen": "test",
 							"script": {
+								"id": "3e3c2885-b80b-4e31-9914-1dbb46c715ef",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
@@ -392,6 +350,10 @@
 							}
 						}
 					],
+					"id": "53494f26-9c52-4902-b827-5718e874dd51",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "DELETE",
 						"header": [
@@ -401,18 +363,7 @@
 								"type": "text"
 							}
 						],
-						"url": {
-							"raw": "https://{{book_url}}/v1/books/{{bookId}}",
-							"protocol": "https",
-							"host": [
-								"{{book_url}}"
-							],
-							"path": [
-								"v1",
-								"books",
-								"{{bookId}}"
-							]
-						}
+						"url": "https://{{book_url}}/v1/books/{{bookId}}"
 					},
 					"response": []
 				},
@@ -422,13 +373,14 @@
 						{
 							"listen": "test",
 							"script": {
+								"id": "3e3c2885-b80b-4e31-9914-1dbb46c715ef",
 								"exec": [
 									"pm.test(\"Status code is 404\", function () {\r",
 									"    pm.response.to.have.status(404);\r",
 									"});\r",
 									"\r",
 									"pm.test('Schema validation', () => {\r",
-									"    pm.response.to.have.jsonSchema (JSON.parse(pm.globals.get(\"book_delete_schema_fail\")));\r",
+									"    pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get(\"book_delete_schema_fail\")));\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -436,6 +388,10 @@
 							}
 						}
 					],
+					"id": "f39a2187-d160-4bf8-8e93-3e7b8bc00a0f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "DELETE",
 						"header": [
@@ -445,22 +401,12 @@
 								"type": "text"
 							}
 						],
-						"url": {
-							"raw": "https://{{book_url}}/v1/books/{{bookId}}",
-							"protocol": "https",
-							"host": [
-								"{{book_url}}"
-							],
-							"path": [
-								"v1",
-								"books",
-								"{{bookId}}"
-							]
-						}
+						"url": "https://{{book_url}}/v1/books/{{bookId}}"
 					},
 					"response": []
 				}
-			]
+			],
+			"id": "bc0f1f7a-968c-4fff-8658-65804322c790"
 		}
 	]
 }
