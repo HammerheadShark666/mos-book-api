@@ -50,9 +50,28 @@ jobs:
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_d0512945eba04c92b4ed37722f065a5d }}
         images: 'prodcrmsordersystem.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_6e92c88e8f5d48e58719308953d43b8c }}/microservicebook:${{ github.sha }}'
 
-  automated-api-tests:
+  unit-tests:
     runs-on: ubuntu-latest
     needs: deploy
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '8.x'
+          include-prerelease: true
+
+      - name: Build with dotnet
+        run: dotnet build Microservice.Book.Api/Microservice.Book.Api.csproj --configuration Release
+
+      - name: Unit Tests
+        run: dotnet test Microservice.Book.Api.Test.Unit/Microservice.Book.Api.Test.Unit.csproj --logger "console;verbosity=detailed"
+  
+
+  automated-api-tests:
+    runs-on: ubuntu-latest
+    needs: unit-tests
     steps:
       - uses: actions/checkout@v4
       - name: Install Postman CLI
