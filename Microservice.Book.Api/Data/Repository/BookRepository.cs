@@ -37,6 +37,7 @@ public class BookRepository(IDbContextFactory<BookDbContext> dbContextFactory) :
     {
         await using var db = await _dbContextFactory.CreateDbContextAsync();
         return await db.Books
+                        .AsNoTracking()
                         .Where(o => o.Title.Contains(criteria))
                         .Include(e => e.Author)
                         .Include(e => e.Publisher)
@@ -61,12 +62,12 @@ public class BookRepository(IDbContextFactory<BookDbContext> dbContextFactory) :
     public async Task<bool> IsbnExistsAsync(string isbn)
     {
         await using var db = await _dbContextFactory.CreateDbContextAsync();
-        return await db.Books.AnyAsync(x => x.ISBN.Equals(isbn));
+        return await db.Books.AsNoTracking().AnyAsync(x => x.ISBN.Equals(isbn));
     }
 
     public async Task<bool> IsbnExistsAsync(Guid id, string isbn)
     {
         await using var db = await _dbContextFactory.CreateDbContextAsync();
-        return await db.Books.AnyAsync(x => x.ISBN.Equals(isbn) && !x.Id.Equals(id));
+        return await db.Books.AsNoTracking().AnyAsync(x => x.ISBN.Equals(isbn) && !x.Id.Equals(id));
     }
 }
