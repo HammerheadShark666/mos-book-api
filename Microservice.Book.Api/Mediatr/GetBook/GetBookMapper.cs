@@ -6,6 +6,6 @@ public class GetBookMapper : Profile
 {
     public GetBookMapper()
     {
-        base.CreateMap<Api.Domain.Book, GetBookResponse>(); 
+        base.CreateMap<Api.Domain.Book, GetBookResponse>();
     }
 }

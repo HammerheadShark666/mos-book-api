@@ -2,4 +2,4 @@
 
 namespace Microservice.Book.Api.MediatR.DeleteBook;
 
-public record DeleteBookRequest(Guid Id) : IRequest<Unit>;                            
+public record DeleteBookRequest(Guid Id) : IRequest<Unit>;

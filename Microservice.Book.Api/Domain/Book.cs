@@ -19,7 +19,7 @@ public class Book
     [ForeignKey("Id")]
     [Required]
     public Guid AuthorId { get; set; }
-    public Author Author {get; set; }
+    public Author Author { get; set; }
 
     [ForeignKey("Id")]
     public int? PublisherId { get; set; }
@@ -28,8 +28,8 @@ public class Book
     [ForeignKey("Id")]
     public int? SeriesId { get; set; }
     public Series Series { get; set; }
-     
-    [MaxLength(2000)] 
+
+    [MaxLength(2000)]
     public string Summary { get; set; }
 
     [MaxLength(10)]

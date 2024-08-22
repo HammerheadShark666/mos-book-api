@@ -19,7 +19,7 @@ public class DeleteBookCommandHandler : IRequestHandler<DeleteBookRequest, Unit>
         if (book == null)
             throw new NotFoundException("Book not found.");
 
-        await _bookRepository.Delete(book);  
+        await _bookRepository.Delete(book);
         return Unit.Value;
     }
 }

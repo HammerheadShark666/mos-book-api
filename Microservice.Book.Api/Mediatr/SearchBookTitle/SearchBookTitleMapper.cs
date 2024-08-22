@@ -8,7 +8,7 @@ public class SearchBookTitleMapper : Profile
     {
         base.CreateMap<List<Domain.Book>, SearchBookTitleResponse>()
             .ForCtorParam(nameof(SearchBookTitleResponse.Books),
-                    opt => opt.MapFrom(src => src)); 
+                    opt => opt.MapFrom(src => src));
 
         base.CreateMap<Api.Domain.Book, BookResponse>()
             .ForCtorParam(nameof(BookResponse.Author),

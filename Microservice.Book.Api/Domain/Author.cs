@@ -17,6 +17,6 @@ public class Author
     [Required]
     public string FirstName { get; set; }
 
-    [MaxLength(30)] 
+    [MaxLength(30)]
     public string MiddleName { get; set; }
 }
