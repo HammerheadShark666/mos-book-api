@@ -12,9 +12,9 @@ public class AddBookCommandHandler(IBookRepository bookRepository,
 
     public async Task<AddBookResponse> Handle(AddBookRequest addBookRequest, CancellationToken cancellationToken)
     {
-        var book = _mapper.Map<Api.Domain.Book>(addBookRequest); 
-        await _bookRepository.AddAsync(book); 
+        var book = _mapper.Map<Api.Domain.Book>(addBookRequest);
+        await _bookRepository.AddAsync(book);
 
         return new AddBookResponse(book.Id);
     }
-} 
+}

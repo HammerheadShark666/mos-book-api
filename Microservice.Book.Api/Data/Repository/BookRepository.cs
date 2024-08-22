@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore;
 namespace Microservice.Book.Api.Data.Repository;
 
 public class BookRepository(IDbContextFactory<BookDbContext> dbContextFactory) : IBookRepository
-{    
+{
     public IDbContextFactory<BookDbContext> _dbContextFactory { get; set; } = dbContextFactory;
 
     public async Task<Domain.Book> AddAsync(Domain.Book book)
     {
         await using var db = await _dbContextFactory.CreateDbContextAsync();
         await db.AddAsync(book);
-        db.SaveChanges(); 
+        db.SaveChanges();
 
         return book;
     }
@@ -22,15 +22,15 @@ public class BookRepository(IDbContextFactory<BookDbContext> dbContextFactory) :
         using var db = _dbContextFactory.CreateDbContext();
 
         db.Books.Update(book);
-        await db.SaveChangesAsync(); 
+        await db.SaveChangesAsync();
     }
 
     public async Task Delete(Domain.Book book)
-    { 
-        using var db = _dbContextFactory.CreateDbContext(); 
-         
+    {
+        using var db = _dbContextFactory.CreateDbContext();
+
         db.Books.Remove(book);
-        await db.SaveChangesAsync(); 
+        await db.SaveChangesAsync();
     }
 
     public async Task<List<Domain.Book>> SearchTitleAsync(string criteria)
@@ -45,7 +45,7 @@ public class BookRepository(IDbContextFactory<BookDbContext> dbContextFactory) :
                         .Include(e => e.DiscountType)
                         .OrderBy(e => e.Title)
                         .ToListAsync();
-    } 
+    }
 
     public async Task<Domain.Book> ByIdAsync(Guid id)
     {
@@ -58,7 +58,7 @@ public class BookRepository(IDbContextFactory<BookDbContext> dbContextFactory) :
                         .Include(e => e.DiscountType)
                         .SingleOrDefaultAsync();
     }
-   
+
     public async Task<bool> IsbnExistsAsync(string isbn)
     {
         await using var db = await _dbContextFactory.CreateDbContextAsync();

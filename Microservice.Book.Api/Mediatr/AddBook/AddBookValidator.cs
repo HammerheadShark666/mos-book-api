@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using Microservice.Book.Api.Data.Repository.Interfaces;
-using Microservice.Book.Api.Helpers;
 using Microservice.Book.Api.Helpers.Interfaces;
 
 namespace Microservice.Book.Api.MediatR.AddBook;
@@ -17,7 +16,7 @@ public class AddBookValidator : AbstractValidator<AddBookRequest>
 
         RuleFor(addBookRequest => addBookRequest).Must((addBookRequest, cancellation) =>
         {
-            return _bookHelper.ValidISBN13(addBookRequest.Isbn); 
+            return _bookHelper.ValidISBN13(addBookRequest.Isbn);
         }).WithMessage("Invalid ISBN code");
 
         RuleFor(addBookRequest => addBookRequest).MustAsync(async (addBookRequest, cancellation) =>
@@ -31,8 +30,8 @@ public class AddBookValidator : AbstractValidator<AddBookRequest>
 
         RuleFor(addBookRequest => addBookRequest.Summary)
                 .NotEmpty().WithMessage("Summary is required.")
-                .Length(1, 2000).WithMessage("Summary length between 1 and 2000."); 
-    }  
+                .Length(1, 2000).WithMessage("Summary length between 1 and 2000.");
+    }
 
     protected async Task<bool> IsbnExists(string isbn)
     {

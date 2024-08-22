@@ -33,7 +33,7 @@ public static class AppExtensions
                 }
             });
         }
-    } 
+    }
 
     public static ApiVersionSet GetApiVersionSet(this WebApplication app)
     {

@@ -11,7 +11,7 @@ public class BookHelperTests
     public void SetUp()
     {
         _bookHelper = new BookHelper();
-    } 
+    }
 
     [Test]
     public void validate_isbn_valid_return_true()

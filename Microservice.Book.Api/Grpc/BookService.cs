@@ -5,7 +5,7 @@ using Microservice.Book.Api.Protos;
 namespace Microservice.Book.Api.Grpc;
 
 public class BookService : BookGrpc.BookGrpcBase
-{ 
+{
     private readonly IBookRepository _bookRepository;
 
     public BookService(IBookRepository bookRepository)
@@ -14,22 +14,25 @@ public class BookService : BookGrpc.BookGrpcBase
     }
 
     public override async Task<ListBookResponse> GetBooks(ListBookRequest request, ServerCallContext context)
-    {  
-        ListBookResponse books = new ListBookResponse();
+    {
+        ListBookResponse books = new();
 
         foreach (var bookRequest in request.BookRequests)
         {
             var id = bookRequest.Id;
 
             var book = await _bookRepository.ByIdAsync(new Guid(id));
-            if(book != null)
+            if (book != null)
             {
-                books.BookResponses.Add(new BookResponse() { Id = id, 
-                                                             Name = book.Title,
-                                                             UnitPrice = book.Price.ToString() });
+                books.BookResponses.Add(new BookResponse()
+                {
+                    Id = id,
+                    Name = book.Title,
+                    UnitPrice = book.Price.ToString()
+                });
             }
         }
 
-        return books; 
+        return books;
     }
 }

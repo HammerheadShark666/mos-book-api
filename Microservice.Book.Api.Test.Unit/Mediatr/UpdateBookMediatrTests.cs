@@ -14,13 +14,13 @@ namespace Microservice.Book.Api.Test.Unit.Mediatr;
 [TestFixture]
 public class UpdateBookMediatrTests
 {
-    private Mock<IBookRepository> bookRepositoryMock = new Mock<IBookRepository>();
-    private ServiceCollection services = new ServiceCollection();
+    private Mock<IBookRepository> bookRepositoryMock = new();
+    private ServiceCollection services = new();
     private ServiceProvider serviceProvider;
     private IMediator mediator;
 
-    private Api.Domain.Book book = new Api.Domain.Book();
-    private UpdateBookRequest updateBookRequest = new UpdateBookRequest(Guid.Empty, "Infinity Son", "9780063376120",
+    private Api.Domain.Book book = new();
+    private UpdateBookRequest updateBookRequest = new(Guid.Empty, "Infinity Son", "9780063376120",
                                                   new Guid("c95ba8ff-06a1-49d0-bc45-83f89b3ce820"),
                                                        3, 2, "Infinity Son Summary", "New", 50, 7.50m, null, null);
 
