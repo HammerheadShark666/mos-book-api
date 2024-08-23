@@ -3,7 +3,6 @@ using Microservice.Book.Api.Data.Repository.Interfaces;
 using Microservice.Book.Api.Helpers;
 using Microservice.Book.Api.Helpers.Exceptions;
 using Microservice.Book.Api.MediatR.DeleteBook;
-using Microservice.Book.Api.MediatR.UpdateBook;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -77,8 +76,7 @@ public class DeleteBookMediatrTests
         Guid id = new("07c06c3f-0897-44b6-ae05-a70540e73a12");
 
         bookRepositoryMock
-                .Setup(x => x.ByIdAsync(id))
-                .Returns(Task.FromResult((Domain.Book)null));
+                .Setup(x => x.ByIdAsync(id)); 
 
         var deleteBookRequest = new DeleteBookRequest(id);
 

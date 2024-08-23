@@ -11,12 +11,12 @@ public class Author
 
     [MaxLength(30)]
     [Required]
-    public string Surname { get; set; }
+    public string Surname { get; set; } = string.Empty;
 
     [MaxLength(30)]
     [Required]
-    public string FirstName { get; set; }
+    public string FirstName { get; set; } = string.Empty;
 
     [MaxLength(30)]
-    public string MiddleName { get; set; }
+    public string? MiddleName { get; set; }
 }
