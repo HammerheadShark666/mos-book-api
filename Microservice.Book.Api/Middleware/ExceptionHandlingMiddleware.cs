@@ -58,8 +58,6 @@ internal sealed class ExceptionHandlingMiddleware : IMiddleware
 
         context.Response.StatusCode = (int)httpStatusCode;
 
-        //if (result == string.Empty) result = JsonSerializer.Serialize(new { error = exception?.Message });
-
         if (result == string.Empty) result = JsonSerializer.Serialize(new Helpers.ValidationError(ErrorType.Error.ToString(), exception?.Message));
 
         return context.Response.WriteAsync(result);
