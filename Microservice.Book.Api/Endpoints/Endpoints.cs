@@ -20,10 +20,11 @@ public static class Endpoints
     {
         var bookGroup = app.MapGroup("v{version:apiVersion}/books").WithTags("book");
 
-        bookGroup.MapGet("/{id}", async ([FromRoute] Guid id, [FromServices] IMediator mediator) => {
+        bookGroup.MapGet("/{id}", async ([FromRoute] Guid id, [FromServices] IMediator mediator) =>
+        {
             var getBookResponse = await mediator.Send(new GetBookRequest(id));
             return Results.Ok(getBookResponse);
-        }) 
+        })
         .Produces<GetBookResponse>((int)HttpStatusCode.OK)
         .Produces<BadRequestException>((int)HttpStatusCode.BadRequest)
         .Produces<NotFoundException>((int)HttpStatusCode.NotFound)
@@ -38,7 +39,8 @@ public static class Endpoints
             Tags = new List<OpenApiTag> { new() { Name = "Microservice Order System - Books" } }
         });
 
-        bookGroup.MapGet("/title/{criteria}", async ([FromRoute] string criteria, [FromServices] IMediator mediator) => {
+        bookGroup.MapGet("/title/{criteria}", async ([FromRoute] string criteria, [FromServices] IMediator mediator) =>
+        {
             var searchBookTitleResponse = await mediator.Send(new SearchBookTitleRequest(criteria));
             return Results.Ok(searchBookTitleResponse.Books);
         })
@@ -57,7 +59,8 @@ public static class Endpoints
             Tags = new List<OpenApiTag> { new() { Name = "Microservice Order System - Books" } }
         });
 
-        bookGroup.MapPost("/add", async (AddBookRequest addBookRequest, IMediator mediator) => {
+        bookGroup.MapPost("/add", async (AddBookRequest addBookRequest, IMediator mediator) =>
+        {
             var addBookResponse = await mediator.Send(addBookRequest);
             return Results.Ok(addBookResponse);
         })
@@ -65,7 +68,7 @@ public static class Endpoints
         .Produces<AddBookResponse>((int)HttpStatusCode.OK)
         .Produces<BadRequestException>((int)HttpStatusCode.BadRequest)
         .Produces<ValidationException>((int)HttpStatusCode.BadRequest)
-        .Produces<ArgumentException>((int)HttpStatusCode.BadRequest) 
+        .Produces<ArgumentException>((int)HttpStatusCode.BadRequest)
         .WithName("AddBook")
         .WithApiVersionSet(app.GetApiVersionSet())
         .MapToApiVersion(new ApiVersion(1, 0))
@@ -77,7 +80,8 @@ public static class Endpoints
             Tags = new List<OpenApiTag> { new() { Name = "Microservice Order System - Books" } }
         });
 
-        bookGroup.MapPut("/update", async (UpdateBookRequest updateBookRequest, IMediator mediator) => {
+        bookGroup.MapPut("/update", async (UpdateBookRequest updateBookRequest, IMediator mediator) =>
+        {
             var updateBookResponse = await mediator.Send(updateBookRequest);
             return Results.Ok(updateBookResponse);
         })
@@ -98,14 +102,15 @@ public static class Endpoints
             Tags = new List<OpenApiTag> { new() { Name = "Microservice Order System - Books" } }
         });
 
-        bookGroup.MapDelete("/{id}", async ([FromRoute] Guid id, [FromServices] IMediator mediator) => {
+        bookGroup.MapDelete("/{id}", async ([FromRoute] Guid id, [FromServices] IMediator mediator) =>
+        {
             var deleteBookResponse = await mediator.Send(new DeleteBookRequest(id));
             return Results.Ok(deleteBookResponse);
         })
         .Accepts<DeleteBookRequest>("application/json")
         .Produces((int)HttpStatusCode.OK)
         .Produces<BadRequestException>((int)HttpStatusCode.BadRequest)
-        .Produces<ValidationException>((int)HttpStatusCode.BadRequest) 
+        .Produces<ValidationException>((int)HttpStatusCode.BadRequest)
         .Produces<NotFoundException>((int)HttpStatusCode.NotFound)
         .WithName("DeleteBook")
         .WithApiVersionSet(app.GetApiVersionSet())

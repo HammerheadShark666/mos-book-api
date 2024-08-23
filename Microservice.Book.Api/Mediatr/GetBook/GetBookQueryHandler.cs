@@ -5,17 +5,23 @@ using Microservice.Book.Api.Helpers.Exceptions;
 
 namespace Microservice.Book.Api.MediatR.GetBook;
 
-public class GetBookQueryHandler(IBookRepository bookRepository, IMapper mapper) : IRequestHandler<GetBookRequest, GetBookResponse>
+public class GetBookQueryHandler(IBookRepository bookRepository,
+                                 ILogger<GetBookQueryHandler> logger,
+                                 IMapper mapper) : IRequestHandler<GetBookRequest, GetBookResponse>
 {
-    private IBookRepository _bookRepository { get; set; } = bookRepository ;
+    private IBookRepository _bookRepository { get; set; } = bookRepository;
     private IMapper _mapper { get; set; } = mapper;
-     
-    public async Task<GetBookResponse> Handle(GetBookRequest request, CancellationToken cancellationToken)
-    {  
-        var book = await _bookRepository.ByIdAsync(request.Id);
-        if (book == null)
-            throw new NotFoundException($"Book not found for id - {request.Id}");
+    private ILogger<GetBookQueryHandler> _logger { get; set; } = logger;
 
-        return _mapper.Map<GetBookResponse>(book); 
+    public async Task<GetBookResponse> Handle(GetBookRequest getBookRequest, CancellationToken cancellationToken)
+    {
+        var book = await _bookRepository.ByIdAsync(getBookRequest.Id);
+        if (book == null)
+        {
+            _logger.LogError($"Book not found - {getBookRequest.Id}");
+            throw new NotFoundException("Book not found.");
+        }
+
+        return _mapper.Map<GetBookResponse>(book);
     }
 }

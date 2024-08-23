@@ -80,9 +80,9 @@ public static class IServiceCollectionExtensions
         services.AddSwaggerGen(options =>
         {
             options.OperationFilter<SwaggerDefaultValues>();
-            options.SupportNonNullableReferenceTypes(); 
+            options.SupportNonNullableReferenceTypes();
         });
-    }     
+    }
 
     public static void ConfigureGrpc(this IServiceCollection services)
     {

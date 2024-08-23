@@ -6,7 +6,7 @@ using System.Text;
 namespace Microservice.Book.Api.Address.Api.Extensions;
 
 public static class JwtExtensions
-{  
+{
     public static void AddJwtAuthentication(this IServiceCollection services)
     {
         services.AddAuthentication(optiones =>

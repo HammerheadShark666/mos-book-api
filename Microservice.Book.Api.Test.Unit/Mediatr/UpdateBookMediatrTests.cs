@@ -6,6 +6,7 @@ using Microservice.Book.Api.Helpers.Exceptions;
 using Microservice.Book.Api.Helpers.Interfaces;
 using Microservice.Book.Api.MediatR.UpdateBook;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Moq;
 using System.Reflection;
 
@@ -14,13 +15,14 @@ namespace Microservice.Book.Api.Test.Unit.Mediatr;
 [TestFixture]
 public class UpdateBookMediatrTests
 {
-    private Mock<IBookRepository> bookRepositoryMock = new Mock<IBookRepository>();
-    private ServiceCollection services = new ServiceCollection();
+    private Mock<IBookRepository> bookRepositoryMock = new();
+    private ServiceCollection services = new();
+    private Mock<ILogger<UpdateBookCommandHandler>> loggerMock = new();
     private ServiceProvider serviceProvider;
     private IMediator mediator;
 
-    private Api.Domain.Book book = new Api.Domain.Book();
-    private UpdateBookRequest updateBookRequest = new UpdateBookRequest(Guid.Empty, "Infinity Son", "9780063376120",
+    private Api.Domain.Book book = new();
+    private UpdateBookRequest updateBookRequest = new(Guid.Empty, "Infinity Son", "9780063376120",
                                                   new Guid("c95ba8ff-06a1-49d0-bc45-83f89b3ce820"),
                                                        3, 2, "Infinity Son Summary", "New", 50, 7.50m, null, null);
 
@@ -32,6 +34,7 @@ public class UpdateBookMediatrTests
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidatorBehavior<,>));
         services.AddScoped(sp => bookRepositoryMock.Object);
         services.AddScoped<IBookHelper, BookHelper>();
+        services.AddScoped<ILogger<UpdateBookCommandHandler>>(sp => loggerMock.Object);
         services.AddAutoMapper(Assembly.GetAssembly(typeof(UpdateBookMapper)));
 
         serviceProvider = services.BuildServiceProvider();
@@ -102,7 +105,7 @@ public class UpdateBookMediatrTests
                 .Returns(value: Task.FromResult(null as Api.Domain.Book));
 
         Exception ex = Assert.ThrowsAsync<NotFoundException>(async () => await mediator.Send(updateBookRequest));
-        var expectedResult = "Book not found for id - 07c06c3f-0897-44b6-ae05-a70540e73a12";
+        var expectedResult = "Book not found.";
 
         Assert.That(ex.Message, Is.EqualTo(expectedResult));
     }

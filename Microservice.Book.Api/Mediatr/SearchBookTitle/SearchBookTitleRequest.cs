@@ -1,4 +1,4 @@
-using MediatR;  
+using MediatR;
 
 namespace Microservice.Book.Api.MediatR.SearchBookTitle;
 

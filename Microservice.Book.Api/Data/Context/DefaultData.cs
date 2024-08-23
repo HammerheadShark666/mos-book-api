@@ -6,9 +6,9 @@ public class DefaultData
     {
         return new List<Domain.Series>()
         {
-            new Domain.Series { Id = 1, Name = "The Arc of a Scythe" },
-            new Domain.Series { Id = 2, Name = "The Infinity Cycle" },
-            new Domain.Series { Id = 3, Name = "Queen’s Thief" }
+            new() { Id = 1, Name = "The Arc of a Scythe" },
+            new() { Id = 2, Name = "The Infinity Cycle" },
+            new() { Id = 3, Name = "Queen’s Thief" }
         };
     }
 
@@ -16,8 +16,8 @@ public class DefaultData
     {
         return new List<Domain.DiscountType>()
         {
-            new Domain.DiscountType { Id = 1, Name = "Percentage" },
-            new Domain.DiscountType { Id = 2, Name = "Monetary" } 
+            new() { Id = 1, Name = "Percentage" },
+            new() { Id = 2, Name = "Monetary" }
         };
     }
 
@@ -25,13 +25,13 @@ public class DefaultData
     {
         return new List<Domain.Publisher>()
         {
-            new Domain.Publisher { Id = 1, Name = "Simon & Schuster Books for Young Readers" },
-            new Domain.Publisher { Id = 2, Name = "Bulletin Blue Ribbon" },
-            new Domain.Publisher { Id = 3, Name = "Quill Tree Books" },
-            new Domain.Publisher { Id = 4, Name = "Bloomsbury Publishing PLC"},
-            new Domain.Publisher { Id = 5, Name = "Penguin Books Ltd" },
-            new Domain.Publisher { Id = 6, Name = "Duckworth Books" },
-            new Domain.Publisher { Id = 7, Name = "Little, Brown Book Group"}
+            new() { Id = 1, Name = "Simon & Schuster Books for Young Readers" },
+            new() { Id = 2, Name = "Bulletin Blue Ribbon" },
+            new() { Id = 3, Name = "Quill Tree Books" },
+            new() { Id = 4, Name = "Bloomsbury Publishing PLC"},
+            new() { Id = 5, Name = "Penguin Books Ltd" },
+            new() { Id = 6, Name = "Duckworth Books" },
+            new() { Id = 7, Name = "Little, Brown Book Group"}
 
         };
     }
@@ -50,7 +50,7 @@ public class DefaultData
             CreateAuthor(new Guid("ae55b0d1-ba02-41e1-9efa-9b4d4ac15eec"), "Neal", "Shusterman", null),
             CreateAuthor(new Guid("c95ba8ff-06a1-49d0-bc45-83f89b3ce820"), "Adam", "Silvera", null),
             CreateAuthor(new Guid("f07e88ac-53b2-4def-af07-957cbb18523c"), "Turner", "Megan", "Whalen")
-        }; 
+        };
     }
 
     public static List<Domain.Book> GetBookDefaultData()
@@ -65,7 +65,7 @@ public class DefaultData
         var infinityKingsSummary = "After the ultimate betrayal, Emil must rise up as a leader to stop his brother, Brighton, before he becomes too powerful. Even if that means pushing away Ness and Wyatt as they compete for his heart so he can focus on the war.";
         var scytheSummary = "A world with no hunger, no disease, no war, no misery: humanity has conquered all those things, and has even conquered death. Now Scythes are the only ones who can end life—and they are commanded to do so, in order to keep the size of the population under control.";
         var thunderheadSummary = "The Thunderhead is the perfect ruler of a perfect world, but it has no control over the scythedom. A year has passed since Rowan had gone off grid. Since then, he has become an urban legend, a vigilante snuffing out corrupt scythes in a trial by fire. His story is told in whispers across the continent.";
-        
+
         return new List<Domain.Book>()
         {
             CreateBook(new Guid("07c06c3f-0897-44b6-ae05-a70540e73a12"), "Infinity Son", "9780063376120", new Guid("c95ba8ff-06a1-49d0-bc45-83f89b3ce820"), 3, 2, infinitySonSummary, "New", 50, 7.50m, null, null),
@@ -77,7 +77,7 @@ public class DefaultData
             CreateBook(new Guid("285c81bc-f257-4ffb-b6ce-7ab5fa9e5c81"), "Skandar and the Chaos Trials", "9781398529687", new Guid("ff4d5a80-81e3-42e3-8052-92cf5c51e797"), 1, null, SkandarAndTheChaosTrialsSummary, "New", 20, 12.99m, null, null),
             CreateBook(new Guid("01f54aa7-c51a-4b92-a72b-68e0965bf246"), "Funny Story", "2928377225186", new Guid("47417642-87d9-4047-ae13-4c721d99ab48"), 5, null, funnyStorySummary, "New", 20, 11.99m, null, null),
             CreateBook(new Guid("6b85f863-7991-4f93-bf86-8c756fdeac87"), "Fall of Civilizations: Stories of Greatness and Decline", "9780715655009", new Guid("55b431ff-693e-4664-8f65-cfd8d0b14b1b"), 6, null, fallOfCivilizationsSummary, "New", 10, 15.99m, 10.0m, 1),
-            CreateBook(new Guid("37544155-da95-49e8-b7fe-3c937eb1de98"), "Wild Love", "9780349441634", new Guid("aa1dc96f-3be5-41cd-8a1b-207284af3fdd"), 7, null, wildLoveSummary, "New", 10, 9.99m, null, null) 
+            CreateBook(new Guid("37544155-da95-49e8-b7fe-3c937eb1de98"), "Wild Love", "9780349441634", new Guid("aa1dc96f-3be5-41cd-8a1b-207284af3fdd"), 7, null, wildLoveSummary, "New", 10, 9.99m, null, null)
         };
     }
 
