@@ -1,3 +1,5 @@
+// Ignore Spelling: Mediatr
+
 using FluentValidation;
 using MediatR;
 using Microservice.Book.Api.Data.Repository.Interfaces;

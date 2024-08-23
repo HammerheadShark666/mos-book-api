@@ -1,4 +1,6 @@
-﻿using FluentValidation;
+﻿// Ignore Spelling: Middleware
+
+using FluentValidation;
 using FluentValidation.Results;
 using Microservice.Book.Api.Helpers.Exceptions;
 using System.Net;
@@ -58,7 +60,9 @@ internal sealed class ExceptionHandlingMiddleware : IMiddleware
 
         context.Response.StatusCode = (int)httpStatusCode;
 
-        if (result == string.Empty) result = JsonSerializer.Serialize(new Helpers.ValidationError(ErrorType.Error.ToString(), exception?.Message));
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+        if (result == string.Empty) result = JsonSerializer.Serialize(new Helpers.ValidationError(ErrorType.Error.ToString(), exception.Message));
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
 
         return context.Response.WriteAsync(result);
     }

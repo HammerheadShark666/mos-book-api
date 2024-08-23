@@ -1,3 +1,5 @@
+// Ignore Spelling: Mediatr
+
 using FluentValidation;
 using MediatR;
 using Microservice.Book.Api.Data.Repository.Interfaces;
@@ -101,8 +103,7 @@ public class UpdateBookMediatrTests
     public void Book_not_updated_book_not_found_return_not_found_exception()
     {
         bookRepositoryMock
-                .Setup(x => x.ByIdAsync(updateBookRequest.Id))
-                .Returns(value: Task.FromResult(null as Api.Domain.Book));
+                .Setup(x => x.ByIdAsync(updateBookRequest.Id));
 
         Exception ex = Assert.ThrowsAsync<NotFoundException>(async () => await mediator.Send(updateBookRequest));
         var expectedResult = "Book not found.";

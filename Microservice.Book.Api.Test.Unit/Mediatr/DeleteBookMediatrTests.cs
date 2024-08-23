@@ -1,3 +1,5 @@
+// Ignore Spelling: Mediatr
+
 using MediatR;
 using Microservice.Book.Api.Data.Repository.Interfaces;
 using Microservice.Book.Api.Helpers;
@@ -41,7 +43,7 @@ public class DeleteBookMediatrTests
     {
         Guid id = new("07c06c3f-0897-44b6-ae05-a70540e73a12");
 
-        var book = new Domain.Book
+        Domain.Book? book = new()
         {
             Id = id,
             Title = "Infinity Son",
@@ -76,7 +78,7 @@ public class DeleteBookMediatrTests
         Guid id = new("07c06c3f-0897-44b6-ae05-a70540e73a12");
 
         bookRepositoryMock
-                .Setup(x => x.ByIdAsync(id)); 
+                .Setup(x => x.ByIdAsync(id));
 
         var deleteBookRequest = new DeleteBookRequest(id);
 
