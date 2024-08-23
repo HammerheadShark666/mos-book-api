@@ -4,6 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
     <InvariantGlobalization>false</InvariantGlobalization>
     <UserSecretsId>ac3b4e46-702b-4309-ac8f-36d6942cd591</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>

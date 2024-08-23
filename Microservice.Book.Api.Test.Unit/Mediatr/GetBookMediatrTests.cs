@@ -80,8 +80,7 @@ public class GetBookMediatrTests
         var id = Guid.NewGuid();
 
         bookRepositoryMock
-                .Setup(x => x.ByIdAsync(id))
-                .ReturnsAsync((Domain.Book)null);
+                .Setup(x => x.ByIdAsync(id));
 
         var getBookRequest = new GetBookRequest(id);
 
