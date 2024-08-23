@@ -12,6 +12,10 @@ public class SearchBookTitleQueryHandler(IBookRepository bookRepository, IMapper
     public async Task<SearchBookTitleResponse> Handle(SearchBookTitleRequest request, CancellationToken cancellationToken)
     {
         var books = await _bookRepository.SearchTitleAsync(request.Criteria);
+
+        if (books == null)
+            throw new NotFoundException($"Books not found for id - '{request.Criteria}'");
+
         return _mapper.Map<SearchBookTitleResponse>(books);
     }
 }

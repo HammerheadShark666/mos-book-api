@@ -6,6 +6,7 @@ using Microservice.Book.Api.Helpers.Exceptions;
 using Microservice.Book.Api.Helpers.Interfaces;
 using Microservice.Book.Api.MediatR.UpdateBook;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Moq;
 using System.Reflection;
 
@@ -16,6 +17,7 @@ public class UpdateBookMediatrTests
 {
     private Mock<IBookRepository> bookRepositoryMock = new();
     private ServiceCollection services = new();
+    private Mock<ILogger<UpdateBookCommandHandler>> loggerMock = new();
     private ServiceProvider serviceProvider;
     private IMediator mediator;
 
@@ -32,6 +34,7 @@ public class UpdateBookMediatrTests
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidatorBehavior<,>));
         services.AddScoped(sp => bookRepositoryMock.Object);
         services.AddScoped<IBookHelper, BookHelper>();
+        services.AddScoped<ILogger<UpdateBookCommandHandler>>(sp => loggerMock.Object);
         services.AddAutoMapper(Assembly.GetAssembly(typeof(UpdateBookMapper)));
 
         serviceProvider = services.BuildServiceProvider();
@@ -102,7 +105,7 @@ public class UpdateBookMediatrTests
                 .Returns(value: Task.FromResult(null as Api.Domain.Book));
 
         Exception ex = Assert.ThrowsAsync<NotFoundException>(async () => await mediator.Send(updateBookRequest));
-        var expectedResult = "Book not found for id - 07c06c3f-0897-44b6-ae05-a70540e73a12";
+        var expectedResult = "Book not found.";
 
         Assert.That(ex.Message, Is.EqualTo(expectedResult));
     }

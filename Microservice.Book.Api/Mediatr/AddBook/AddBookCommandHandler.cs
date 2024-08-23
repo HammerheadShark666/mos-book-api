@@ -5,7 +5,7 @@ using Microservice.Book.Api.Data.Repository.Interfaces;
 namespace Microservice.Book.Api.MediatR.AddBook;
 
 public class AddBookCommandHandler(IBookRepository bookRepository,
-                                      IMapper mapper) : IRequestHandler<AddBookRequest, AddBookResponse>
+                                   IMapper mapper) : IRequestHandler<AddBookRequest, AddBookResponse>
 {
     private IBookRepository _bookRepository { get; set; } = bookRepository;
     private IMapper _mapper { get; set; } = mapper;

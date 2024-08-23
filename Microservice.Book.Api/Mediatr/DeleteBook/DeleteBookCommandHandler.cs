@@ -4,20 +4,20 @@ using Microservice.Book.Api.Helpers.Exceptions;
 
 namespace Microservice.Book.Api.MediatR.DeleteBook;
 
-public class DeleteBookCommandHandler : IRequestHandler<DeleteBookRequest, Unit>
+public class DeleteBookCommandHandler(IBookRepository bookRepository,
+                                      ILogger<DeleteBookCommandHandler> logger) : IRequestHandler<DeleteBookRequest, Unit>
 {
-    private readonly IBookRepository _bookRepository;
+    private IBookRepository _bookRepository { get; set; } = bookRepository;
+    private ILogger<DeleteBookCommandHandler> _logger { get; set; } = logger;
 
-    public DeleteBookCommandHandler(IBookRepository bookRepository)
+    public async Task<Unit> Handle(DeleteBookRequest deleteBookRequest, CancellationToken cancellationToken)
     {
-        _bookRepository = bookRepository;
-    }
-
-    public async Task<Unit> Handle(DeleteBookRequest request, CancellationToken cancellationToken)
-    {
-        var book = await _bookRepository.ByIdAsync(request.Id);
+        var book = await _bookRepository.ByIdAsync(deleteBookRequest.Id);
         if (book == null)
+        {
+            _logger.LogError($"Book not found - {deleteBookRequest.Id}");
             throw new NotFoundException("Book not found.");
+        }
 
         await _bookRepository.Delete(book);
         return Unit.Value;
