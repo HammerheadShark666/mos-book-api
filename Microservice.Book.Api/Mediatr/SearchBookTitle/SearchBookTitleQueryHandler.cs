@@ -1,6 +1,7 @@
 using AutoMapper;
 using MediatR;
 using Microservice.Book.Api.Data.Repository.Interfaces;
+using Microservice.Book.Api.Helpers.Exceptions;
 
 namespace Microservice.Book.Api.MediatR.SearchBookTitle;
 
