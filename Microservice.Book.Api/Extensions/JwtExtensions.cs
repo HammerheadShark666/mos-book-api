@@ -1,4 +1,6 @@
-﻿using Microservice.Book.Api.Helpers;
+﻿// Ignore Spelling: Jwt
+
+using Microservice.Book.Api.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;

@@ -1,8 +1,9 @@
+// Ignore Spelling: Mediatr
+
 using MediatR;
 using Microservice.Book.Api.Data.Repository.Interfaces;
 using Microservice.Book.Api.Helpers;
 using Microservice.Book.Api.Helpers.Exceptions;
-using Microservice.Book.Api.MediatR.DeleteBook;
 using Microservice.Book.Api.MediatR.GetBook;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -45,7 +46,7 @@ public class GetBookMediatrTests
     {
         Guid id = new("07c06c3f-0897-44b6-ae05-a70540e73a12");
 
-        var book = new Domain.Book
+        Domain.Book? book = new()
         {
             Id = id,
             Title = "Infinity Son",
