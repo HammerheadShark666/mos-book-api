@@ -3,7 +3,9 @@ using Microservice.Book.Api.Data.Repository.Interfaces;
 using Microservice.Book.Api.Helpers;
 using Microservice.Book.Api.Helpers.Exceptions;
 using Microservice.Book.Api.MediatR.DeleteBook;
+using Microservice.Book.Api.MediatR.UpdateBook;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Moq;
 
 namespace Microservice.Book.Api.Test.Unit;
@@ -12,6 +14,7 @@ namespace Microservice.Book.Api.Test.Unit;
 public class DeleteBookMediatrTests
 {
     private Mock<IBookRepository> bookRepositoryMock = new();
+    private Mock<ILogger<DeleteBookCommandHandler>> loggerMock = new();
     private ServiceCollection services = new();
     private ServiceProvider serviceProvider;
     private IMediator mediator;
@@ -22,7 +25,7 @@ public class DeleteBookMediatrTests
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(DeleteBookCommandHandler).Assembly));
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidatorBehavior<,>));
         services.AddScoped<IBookRepository>(sp => bookRepositoryMock.Object);
-
+        services.AddScoped<ILogger<DeleteBookCommandHandler>>(sp => loggerMock.Object);
         serviceProvider = services.BuildServiceProvider();
         mediator = serviceProvider.GetRequiredService<IMediator>();
     }

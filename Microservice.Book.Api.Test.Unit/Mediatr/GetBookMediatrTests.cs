@@ -2,8 +2,10 @@ using MediatR;
 using Microservice.Book.Api.Data.Repository.Interfaces;
 using Microservice.Book.Api.Helpers;
 using Microservice.Book.Api.Helpers.Exceptions;
+using Microservice.Book.Api.MediatR.DeleteBook;
 using Microservice.Book.Api.MediatR.GetBook;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Moq;
 using System.Reflection;
 
@@ -13,6 +15,7 @@ namespace Microservice.Book.Api.Test.Unit;
 public class GetBookMediatrTests
 {
     private Mock<IBookRepository> bookRepositoryMock = new();
+    private Mock<ILogger<GetBookQueryHandler>> loggerMock = new();
     private ServiceCollection services = new();
     private ServiceProvider serviceProvider;
     private IMediator mediator;
@@ -23,6 +26,7 @@ public class GetBookMediatrTests
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(GetBookQueryHandler).Assembly));
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidatorBehavior<,>));
         services.AddScoped<IBookRepository>(sp => bookRepositoryMock.Object);
+        services.AddScoped<ILogger<GetBookQueryHandler>>(sp => loggerMock.Object);
         services.AddAutoMapper(Assembly.GetAssembly(typeof(GetBookMapper)));
 
         serviceProvider = services.BuildServiceProvider();
@@ -86,6 +90,6 @@ public class GetBookMediatrTests
             await mediator.Send(getBookRequest);
         });
 
-        Assert.That(validationException.Message, Is.EqualTo(String.Format("Book not found for id - {0}", id.ToString())));
+        Assert.That(validationException.Message, Is.EqualTo(String.Format("Book not found.")));
     }
 }
