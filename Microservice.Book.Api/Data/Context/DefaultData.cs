@@ -4,27 +4,27 @@ public class DefaultData
 {
     public static List<Domain.Series> GetSeriesDefaultData()
     {
-        return new List<Domain.Series>()
-        {
+        return
+        [
             new() { Id = 1, Name = "The Arc of a Scythe" },
             new() { Id = 2, Name = "The Infinity Cycle" },
             new() { Id = 3, Name = "Queen’s Thief" }
-        };
+        ];
     }
 
     public static List<Domain.DiscountType> GetDiscountTypeDefaultData()
     {
-        return new List<Domain.DiscountType>()
-        {
+        return
+        [
             new() { Id = 1, Name = "Percentage" },
             new() { Id = 2, Name = "Monetary" }
-        };
+        ];
     }
 
     public static List<Domain.Publisher> GetPublisherDefaultData()
     {
-        return new List<Domain.Publisher>()
-        {
+        return
+        [
             new() { Id = 1, Name = "Simon & Schuster Books for Young Readers" },
             new() { Id = 2, Name = "Bulletin Blue Ribbon" },
             new() { Id = 3, Name = "Quill Tree Books" },
@@ -33,13 +33,13 @@ public class DefaultData
             new() { Id = 6, Name = "Duckworth Books" },
             new() { Id = 7, Name = "Little, Brown Book Group"}
 
-        };
+        ];
     }
 
     public static List<Domain.Author> GetAuthorDefaultData()
     {
-        return new List<Domain.Author>()
-        {
+        return
+        [
             CreateAuthor(new Guid("aa1dc96f-3be5-41cd-8a1b-207284af3fdd"), "Silver", "Elsie", null),
             CreateAuthor(new Guid("af95fb7e-8d97-4892-8da3-5e6e51c54044"), "James", "Arthur", "Henry"),
             CreateAuthor(new Guid("55b431ff-693e-4664-8f65-cfd8d0b14b1b"), "Cooper", "Paul", null),
@@ -50,7 +50,7 @@ public class DefaultData
             CreateAuthor(new Guid("ae55b0d1-ba02-41e1-9efa-9b4d4ac15eec"), "Neal", "Shusterman", null),
             CreateAuthor(new Guid("c95ba8ff-06a1-49d0-bc45-83f89b3ce820"), "Adam", "Silvera", null),
             CreateAuthor(new Guid("f07e88ac-53b2-4def-af07-957cbb18523c"), "Turner", "Megan", "Whalen")
-        };
+        ];
     }
 
     public static List<Domain.Book> GetBookDefaultData()
@@ -66,8 +66,8 @@ public class DefaultData
         var scytheSummary = "A world with no hunger, no disease, no war, no misery: humanity has conquered all those things, and has even conquered death. Now Scythes are the only ones who can end life—and they are commanded to do so, in order to keep the size of the population under control.";
         var thunderheadSummary = "The Thunderhead is the perfect ruler of a perfect world, but it has no control over the scythedom. A year has passed since Rowan had gone off grid. Since then, he has become an urban legend, a vigilante snuffing out corrupt scythes in a trial by fire. His story is told in whispers across the continent.";
 
-        return new List<Domain.Book>()
-        {
+        return
+        [
             CreateBook(new Guid("07c06c3f-0897-44b6-ae05-a70540e73a12"), "Infinity Son", "9780063376120", new Guid("c95ba8ff-06a1-49d0-bc45-83f89b3ce820"), 3, 2, infinitySonSummary, "New", 50, 7.50m, null, null),
             CreateBook(new Guid("6131ce7e-fb11-4608-a3d3-f01caee2c465"), "Infinity Reaper", "9780062882318", new Guid("c95ba8ff-06a1-49d0-bc45-83f89b3ce820"), 3, 2, infinityReaperSummary, "New", 34, 8.50m, null, null),
             CreateBook(new Guid("29a75938-ce2d-473b-b7fe-2903fe97fd6e"), "Infinity Kings", "9781398504974", new Guid("c95ba8ff-06a1-49d0-bc45-83f89b3ce820"), 3, 2, infinityKingsSummary, "New", 23, 9.99m, null, null),
@@ -78,7 +78,7 @@ public class DefaultData
             CreateBook(new Guid("01f54aa7-c51a-4b92-a72b-68e0965bf246"), "Funny Story", "2928377225186", new Guid("47417642-87d9-4047-ae13-4c721d99ab48"), 5, null, funnyStorySummary, "New", 20, 11.99m, null, null),
             CreateBook(new Guid("6b85f863-7991-4f93-bf86-8c756fdeac87"), "Fall of Civilizations: Stories of Greatness and Decline", "9780715655009", new Guid("55b431ff-693e-4664-8f65-cfd8d0b14b1b"), 6, null, fallOfCivilizationsSummary, "New", 10, 15.99m, 10.0m, 1),
             CreateBook(new Guid("37544155-da95-49e8-b7fe-3c937eb1de98"), "Wild Love", "9780349441634", new Guid("aa1dc96f-3be5-41cd-8a1b-207284af3fdd"), 7, null, wildLoveSummary, "New", 10, 9.99m, null, null)
-        };
+        ];
     }
 
     private static Domain.Author CreateAuthor(Guid id, string surname, string firstName, string? middlename)

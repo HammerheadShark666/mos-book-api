@@ -17,9 +17,9 @@ namespace Microservice.Book.Api.Test.Unit.Mediatr;
 [TestFixture]
 public class UpdateBookMediatrTests
 {
-    private Mock<IBookRepository> bookRepositoryMock = new();
-    private ServiceCollection services = new();
-    private Mock<ILogger<UpdateBookCommandHandler>> loggerMock = new();
+    private readonly Mock<IBookRepository> bookRepositoryMock = new();
+    private readonly ServiceCollection services = new();
+    private readonly Mock<ILogger<UpdateBookCommandHandler>> loggerMock = new();
     private ServiceProvider serviceProvider;
     private IMediator mediator;
 
@@ -96,7 +96,7 @@ public class UpdateBookMediatrTests
         var actualResult = await mediator.Send(updateBookRequest);
         var expectedResult = "Book Updated.";
 
-        Assert.That(actualResult.message, Is.EqualTo(expectedResult));
+        Assert.That(actualResult.Message, Is.EqualTo(expectedResult));
     }
 
     [Test]
@@ -157,9 +157,12 @@ public class UpdateBookMediatrTests
             await mediator.Send(updateBookRequest);
         });
 
-        Assert.That(validationException.Errors.Count, Is.EqualTo(2));
-        Assert.That(validationException.Errors.ElementAt(0).ErrorMessage, Is.EqualTo("Title is required."));
-        Assert.That(validationException.Errors.ElementAt(1).ErrorMessage, Is.EqualTo("Title length between 1 and 150."));
+        Assert.Multiple(() =>
+        {
+            Assert.That(validationException.Errors.Count, Is.EqualTo(2));
+            Assert.That(validationException.Errors.ElementAt(0).ErrorMessage, Is.EqualTo("Title is required."));
+            Assert.That(validationException.Errors.ElementAt(1).ErrorMessage, Is.EqualTo("Title length between 1 and 150."));
+        });
     }
 
     [Test]
@@ -173,8 +176,11 @@ public class UpdateBookMediatrTests
             await mediator.Send(updateBookRequest);
         });
 
-        Assert.That(validationException.Errors.Count, Is.EqualTo(1));
-        Assert.That(validationException.Errors.ElementAt(0).ErrorMessage, Is.EqualTo("Title length between 1 and 150."));
+        Assert.Multiple(() =>
+        {
+            Assert.That(validationException.Errors.Count, Is.EqualTo(1));
+            Assert.That(validationException.Errors.ElementAt(0).ErrorMessage, Is.EqualTo("Title length between 1 and 150."));
+        });
     }
 
     [Test]
@@ -188,9 +194,12 @@ public class UpdateBookMediatrTests
             await mediator.Send(updateBookRequest);
         });
 
-        Assert.That(validationException.Errors.Count, Is.EqualTo(2));
-        Assert.That(validationException.Errors.ElementAt(0).ErrorMessage, Is.EqualTo("Summary is required."));
-        Assert.That(validationException.Errors.ElementAt(1).ErrorMessage, Is.EqualTo("Summary length between 1 and 2000."));
+        Assert.Multiple(() =>
+        {
+            Assert.That(validationException.Errors.Count, Is.EqualTo(2));
+            Assert.That(validationException.Errors.ElementAt(0).ErrorMessage, Is.EqualTo("Summary is required."));
+            Assert.That(validationException.Errors.ElementAt(1).ErrorMessage, Is.EqualTo("Summary length between 1 and 2000."));
+        });
     }
 
     [Test]
@@ -204,7 +213,10 @@ public class UpdateBookMediatrTests
             await mediator.Send(updateBookRequest);
         });
 
-        Assert.That(validationException.Errors.Count, Is.EqualTo(1));
-        Assert.That(validationException.Errors.ElementAt(0).ErrorMessage, Is.EqualTo("Summary length between 1 and 2000."));
+        Assert.Multiple(() =>
+        {
+            Assert.That(validationException.Errors.Count, Is.EqualTo(1));
+            Assert.That(validationException.Errors.ElementAt(0).ErrorMessage, Is.EqualTo("Summary length between 1 and 2000."));
+        });
     }
 }

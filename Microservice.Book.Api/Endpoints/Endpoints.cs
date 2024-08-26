@@ -16,9 +16,9 @@ namespace Microservice.Book.Api.Endpoints;
 
 public static class Endpoints
 {
-    public static void ConfigureRoutes(this WebApplication app, ConfigurationManager configuration)
+    public static void ConfigureRoutes(this WebApplication webApplication)
     {
-        var bookGroup = app.MapGroup("v{version:apiVersion}/books").WithTags("book");
+        var bookGroup = webApplication.MapGroup("v{version:apiVersion}/books").WithTags("book");
 
         bookGroup.MapGet("/{id}", async ([FromRoute] Guid id, [FromServices] IMediator mediator) =>
         {
@@ -29,14 +29,14 @@ public static class Endpoints
         .Produces<BadRequestException>((int)HttpStatusCode.BadRequest)
         .Produces<NotFoundException>((int)HttpStatusCode.NotFound)
         .WithName("GetBook")
-        .WithApiVersionSet(app.GetApiVersionSet())
+        .WithApiVersionSet(webApplication.GetApiVersionSet())
         .MapToApiVersion(new ApiVersion(1, 0))
         .RequireAuthorization()
         .WithOpenApi(x => new OpenApiOperation(x)
         {
             Summary = "Get a book based on id.",
             Description = "Gets a book based on its id.",
-            Tags = new List<OpenApiTag> { new() { Name = "Microservice Order System - Books" } }
+            Tags = [new() { Name = "Microservice Order System - Books" }]
         });
 
         bookGroup.MapGet("/title/{criteria}", async ([FromRoute] string criteria, [FromServices] IMediator mediator) =>
@@ -49,14 +49,14 @@ public static class Endpoints
         .Produces<BadRequestException>((int)HttpStatusCode.BadRequest)
         .Produces<NotFoundException>((int)HttpStatusCode.NotFound)
         .WithName("SearchBookTitle")
-        .WithApiVersionSet(app.GetApiVersionSet())
+        .WithApiVersionSet(webApplication.GetApiVersionSet())
         .MapToApiVersion(new ApiVersion(1, 0))
         .RequireAuthorization()
         .WithOpenApi(x => new OpenApiOperation(x)
         {
             Summary = "Search for books based on title.",
             Description = "Gets books based on title.",
-            Tags = new List<OpenApiTag> { new() { Name = "Microservice Order System - Books" } }
+            Tags = [new() { Name = "Microservice Order System - Books" }]
         });
 
         bookGroup.MapPost("/add", async (AddBookRequest addBookRequest, IMediator mediator) =>
@@ -70,14 +70,14 @@ public static class Endpoints
         .Produces<ValidationException>((int)HttpStatusCode.BadRequest)
         .Produces<ArgumentException>((int)HttpStatusCode.BadRequest)
         .WithName("AddBook")
-        .WithApiVersionSet(app.GetApiVersionSet())
+        .WithApiVersionSet(webApplication.GetApiVersionSet())
         .MapToApiVersion(new ApiVersion(1, 0))
         .RequireAuthorization()
         .WithOpenApi(x => new OpenApiOperation(x)
         {
             Summary = "Add a book.",
             Description = "Adds a book.",
-            Tags = new List<OpenApiTag> { new() { Name = "Microservice Order System - Books" } }
+            Tags = [new() { Name = "Microservice Order System - Books" }]
         });
 
         bookGroup.MapPut("/update", async (UpdateBookRequest updateBookRequest, IMediator mediator) =>
@@ -92,14 +92,14 @@ public static class Endpoints
         .Produces<ArgumentException>((int)HttpStatusCode.BadRequest)
         .Produces<NotFoundException>((int)HttpStatusCode.NotFound)
         .WithName("UpdateBook")
-        .WithApiVersionSet(app.GetApiVersionSet())
+        .WithApiVersionSet(webApplication.GetApiVersionSet())
         .MapToApiVersion(new ApiVersion(1, 0))
         .RequireAuthorization()
         .WithOpenApi(x => new OpenApiOperation(x)
         {
             Summary = "Update a book.",
             Description = "Updates a book.",
-            Tags = new List<OpenApiTag> { new() { Name = "Microservice Order System - Books" } }
+            Tags = [new() { Name = "Microservice Order System - Books" }]
         });
 
         bookGroup.MapDelete("/{id}", async ([FromRoute] Guid id, [FromServices] IMediator mediator) =>
@@ -113,14 +113,14 @@ public static class Endpoints
         .Produces<ValidationException>((int)HttpStatusCode.BadRequest)
         .Produces<NotFoundException>((int)HttpStatusCode.NotFound)
         .WithName("DeleteBook")
-        .WithApiVersionSet(app.GetApiVersionSet())
+        .WithApiVersionSet(webApplication.GetApiVersionSet())
         .MapToApiVersion(new ApiVersion(1, 0))
         .RequireAuthorization()
         .WithOpenApi(x => new OpenApiOperation(x)
         {
             Summary = "Delete a book.",
             Description = "Deletes a book.",
-            Tags = new List<OpenApiTag> { new() { Name = "Microservice Order System - Books" } }
+            Tags = [new() { Name = "Microservice Order System - Books" }]
         });
     }
 }

@@ -9,14 +9,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Moq;
 
-namespace Microservice.Book.Api.Test.Unit;
+namespace Microservice.Book.Api.Test.Unit.Mediatr;
 
 [TestFixture]
 public class DeleteBookMediatrTests
 {
-    private Mock<IBookRepository> bookRepositoryMock = new();
-    private Mock<ILogger<DeleteBookCommandHandler>> loggerMock = new();
-    private ServiceCollection services = new();
+    private readonly Mock<IBookRepository> bookRepositoryMock = new();
+    private readonly Mock<ILogger<DeleteBookCommandHandler>> loggerMock = new();
+    private readonly ServiceCollection services = new();
     private ServiceProvider serviceProvider;
     private IMediator mediator;
 
@@ -25,8 +25,8 @@ public class DeleteBookMediatrTests
     {
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(DeleteBookCommandHandler).Assembly));
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidatorBehavior<,>));
-        services.AddScoped<IBookRepository>(sp => bookRepositoryMock.Object);
-        services.AddScoped<ILogger<DeleteBookCommandHandler>>(sp => loggerMock.Object);
+        services.AddScoped(sp => bookRepositoryMock.Object);
+        services.AddScoped(sp => loggerMock.Object);
         serviceProvider = services.BuildServiceProvider();
         mediator = serviceProvider.GetRequiredService<IMediator>();
     }

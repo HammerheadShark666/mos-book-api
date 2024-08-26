@@ -4,14 +4,9 @@ using Microservice.Book.Api.Protos;
 
 namespace Microservice.Book.Api.Grpc;
 
-public class BookService : BookGrpc.BookGrpcBase
+public class BookService(IBookRepository bookRepository) : BookGrpc.BookGrpcBase
 {
-    private readonly IBookRepository _bookRepository;
-
-    public BookService(IBookRepository bookRepository)
-    {
-        _bookRepository = bookRepository;
-    }
+    private readonly IBookRepository _bookRepository = bookRepository;
 
     public override async Task<ListBookResponse> GetBooks(ListBookRequest request, ServerCallContext context)
     {
