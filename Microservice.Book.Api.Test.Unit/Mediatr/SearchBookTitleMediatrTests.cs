@@ -6,13 +6,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using System.Reflection;
 
-namespace Microservice.Book.Api.Test.Unit;
+namespace Microservice.Book.Api.Test.Unit.Mediatr;
 
 [TestFixture]
 public class GetSearchBookTitleMediatrTests
 {
-    private Mock<IBookRepository> bookRepositoryMock = new();
-    private ServiceCollection services = new();
+    private readonly Mock<IBookRepository> bookRepositoryMock = new();
+    private readonly ServiceCollection services = new();
     private ServiceProvider serviceProvider;
     private IMediator mediator;
 
@@ -21,7 +21,7 @@ public class GetSearchBookTitleMediatrTests
     {
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(SearchBookTitleQueryHandler).Assembly));
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidatorBehavior<,>));
-        services.AddScoped<IBookRepository>(sp => bookRepositoryMock.Object);
+        services.AddScoped(sp => bookRepositoryMock.Object);
         services.AddAutoMapper(Assembly.GetAssembly(typeof(SearchBookTitleMapper)));
 
         serviceProvider = services.BuildServiceProvider();
@@ -81,19 +81,23 @@ public class GetSearchBookTitleMediatrTests
         var searchBookTitleRequest = new SearchBookTitleRequest(criteria);
         var actualResult = await mediator.Send(searchBookTitleRequest);
 
-        Assert.That(actualResult.Books.Count, Is.EqualTo(2));
+        Assert.Multiple(() =>
+        {
+            Assert.That(actualResult.Books, Has.Count.EqualTo(2));
 
-        var actualBook1 = actualResult.Books[0];
-        Assert.That(actualBook1.Id, Is.EqualTo(id1));
-        Assert.That(actualBook1.Title, Is.EqualTo("Infinity Son"));
-        Assert.That(actualBook1.NumberInStock, Is.EqualTo(50));
-        Assert.That(actualBook1.Price, Is.EqualTo(7.50m));
+            var actualBook1 = actualResult.Books[0];
+            Assert.That(actualBook1.Id, Is.EqualTo(id1));
+            Assert.That(actualBook1.Title, Is.EqualTo("Infinity Son"));
+            Assert.That(actualBook1.NumberInStock, Is.EqualTo(50));
+            Assert.That(actualBook1.Price, Is.EqualTo(7.50m));
 
-        var actualBook2 = actualResult.Books[1];
-        Assert.That(actualBook2.Id, Is.EqualTo(id2));
-        Assert.That(actualBook2.Title, Is.EqualTo("Infinity Reaper"));
-        Assert.That(actualBook2.NumberInStock, Is.EqualTo(34));
-        Assert.That(actualBook2.Price, Is.EqualTo(8.50m));
+            var actualBook2 = actualResult.Books[1];
+            Assert.That(actualBook2.Id, Is.EqualTo(id2));
+            Assert.That(actualBook2.Title, Is.EqualTo("Infinity Reaper"));
+            Assert.That(actualBook2.NumberInStock, Is.EqualTo(34));
+            Assert.That(actualBook2.Price, Is.EqualTo(8.50m));
+
+        });
     }
 
     [Test]

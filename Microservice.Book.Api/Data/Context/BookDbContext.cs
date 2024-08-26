@@ -1,12 +1,9 @@
-﻿using Microservice.Book.Api.Data.Context;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
-namespace Microservice.Book.Api.Data.Contexts;
+namespace Microservice.Book.Api.Data.Context;
 
-public class BookDbContext : DbContext
+public class BookDbContext(DbContextOptions<BookDbContext> options) : DbContext(options)
 {
-    public BookDbContext(DbContextOptions<BookDbContext> options) : base(options) { }
-
     public DbSet<Domain.Book> Books { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -7,22 +7,22 @@ namespace Microservice.Book.Api.Extensions;
 
 public static class AppExtensions
 {
-    public static void ConfigureGprc(this WebApplication app)
+    public static void ConfigureGprc(this WebApplication webApplication)
     {
-        app.MapGrpcService<BookService>();
-        app.MapGrpcReflectionService();
+        webApplication.MapGrpcService<BookService>();
+        webApplication.MapGrpcReflectionService();
     }
 
-    public static void ConfigureSwagger(this WebApplication app)
+    public static void ConfigureSwagger(this WebApplication webApplication)
     {
-        if (app.Environment.IsDevelopment())
+        if (webApplication.Environment.IsDevelopment())
         {
-            app.UseSwagger();
-            app.UseSwaggerUI(options =>
+            webApplication.UseSwagger();
+            webApplication.UseSwaggerUI(options =>
             {
                 options.ConfigObject.AdditionalItems.Add("syntaxHighlight", false);
 
-                var descriptions = app.DescribeApiVersions();
+                var descriptions = webApplication.DescribeApiVersions();
 
                 // Build a swagger endpoint for each discovered API version
                 foreach (var description in descriptions)
@@ -35,19 +35,19 @@ public static class AppExtensions
         }
     }
 
-    public static ApiVersionSet GetApiVersionSet(this WebApplication app)
+    public static ApiVersionSet GetApiVersionSet(this WebApplication webApplication)
     {
-        return app.NewApiVersionSet()
+        return webApplication.NewApiVersionSet()
                   .HasApiVersion(new ApiVersion(1))
                   .ReportApiVersions()
                   .Build();
     }
 
-    public static void ConfigureMiddleware(this WebApplication app)
+    public static void ConfigureMiddleware(this WebApplication webApplication)
     {
-        if (!app.Environment.IsDevelopment())
+        if (!webApplication.Environment.IsDevelopment())
         {
-            app.UseMiddleware<ExceptionHandlingMiddleware>();
+            webApplication.UseMiddleware<ExceptionHandlingMiddleware>();
         }
     }
 }
