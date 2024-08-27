@@ -1,466 +1,412 @@
 {
-  "info": {
-    "_postman_id": "6cdfb948-4f2c-498e-bccf-a9883dafe6a4",
-    "name": "Api",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "4654363",
-    "_collection_link": "https://jwm-demo-team.postman.co/workspace/MOS-Book-Api~c05d20e2-c399-450e-a683-d64fedc1cd80/collection/4654363-6cdfb948-4f2c-498e-bccf-a9883dafe6a4?action=share&source=collection_link&creator=4654363"
-  },
-  "item": [
-    {
-      "name": "Authorization",
-      "item": [
-        {
-          "name": "{{authorization_url}}/{version}login",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Status code is 200\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});  \r",
-                  "\r",
-                  "pm.test('Schema validation', () => {\r",
-                  "    pm.response.to.have.jsonSchema (JSON.parse(pm.globals.get(\"logged_in_schema\")));\r",
-                  "});\r",
-                  " \r",
-                  "var jsonData = JSON.parse(pm.response.text()); \r",
-                  "pm.environment.set(\"token\", jsonData.jwtToken);"
-                ],
-                "type": "text/javascript",
-                "packages": {}
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n  \"username\": \"{{username}}\",\r\n  \"password\": \"{{password}}\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "https://{{authorization_url}}/v1/login",
-              "protocol": "https",
-              "host": [
-                "{{authorization_url}}"
-              ],
-              "path": [
-                "v1",
-                "login"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Book",
-      "item": [
-        {
-          "name": "{{book_url}}/v1/books/title/and (Success)",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Status code is 200\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "}); \r",
-                  "\r",
-                  "pm.test('Schema validation', () => {\r",
-                  "  pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get('books_schema')));\r",
-                  "});\r",
-                  "\r",
-                  "let jsonData = pm.response.json(); \r",
-                  "\r",
-                  "pm.test(\"Has correct title\", function () {     \r",
-                  "    pm.expect(jsonData.length).to.eql(2);\r",
-                  "    pm.expect(jsonData[1].title).to.eql(\"Skandar and the Chaos Trials\");\r",
-                  "});"
-                ],
-                "type": "text/javascript",
-                "packages": {}
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "https://{{book_url}}/v1/books/title/and",
-              "protocol": "https",
-              "host": [
-                "{{book_url}}"
-              ],
-              "path": [
-                "v1",
-                "books",
-                "title",
-                "and"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "{{book_url}}/v1/books/add (Success)",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Status code is 200\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});  \r",
-                  "\r",
-                  "pm.test('Schema validation', () => {\r",
-                  "    pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get(\"book_add_schema\")));\r",
-                  "});\r",
-                  "\r",
-                  "var jsonData = JSON.parse(pm.response.text()); \r",
-                  "pm.environment.set(\"bookId\", jsonData.id);"
-                ],
-                "type": "text/javascript",
-                "packages": {}
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{  \r\n  \"title\": \"Happy Places\",\r\n  \"isbn\": \"9780241995365\",\r\n  \"authorId\": \"47417642-87d9-4047-ae13-4c721d99ab48\",\r\n  \"publisherId\": 4,\r\n  \"seriesId\": 1,\r\n  \"summary\": \"Fizzing with romance, wit and characters to fall head over heels for, Happy Place is a gloriously feelgood novel of fake relationships and awkward holidays from the bestselling author of Book Lovers and Beach Read.\",\r\n  \"condition\": \"Used\",\r\n  \"numberInStock\": 5,\r\n  \"price\": 7.99,\r\n  \"discount\": 3,\r\n  \"discountTypeId\": 2\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "https://{{book_url}}/v1/books/add",
-              "protocol": "https",
-              "host": [
-                "{{book_url}}"
-              ],
-              "path": [
-                "v1",
-                "books",
-                "add"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "{{book_url}}/v1/books/add (Fail - Duplicate Isbn)",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Status code is 400\", function () {\r",
-                  "    pm.response.to.have.status(400);\r",
-                  "});  \r",
-                  "\r",
-                  "pm.test('Schema validation', () => {\r",
-                  "    pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get(\"book_add_schema_fail\")));\r",
-                  "});"
-                ],
-                "type": "text/javascript",
-                "packages": {}
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{  \r\n  \"title\": \"Happy Places\",\r\n  \"isbn\": \"9780241995365\",\r\n  \"authorId\": \"47417642-87d9-4047-ae13-4c721d99ab48\",\r\n  \"publisherId\": 4,\r\n  \"seriesId\": 1,\r\n  \"summary\": \"Fizzing with romance, wit and characters to fall head over heels for, Happy Place is a gloriously feelgood novel of fake relationships and awkward holidays from the bestselling author of Book Lovers and Beach Read.\",\r\n  \"condition\": \"Used\",\r\n  \"numberInStock\": 5,\r\n  \"price\": 7.99,\r\n  \"discount\": 3,\r\n  \"discountTypeId\": 2\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "https://{{book_url}}/v1/books/add",
-              "protocol": "https",
-              "host": [
-                "{{book_url}}"
-              ],
-              "path": [
-                "v1",
-                "books",
-                "add"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "{{book_url}}/v1/books/{{bookId}} (Success)",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Status code is 200\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "}); \r",
-                  "\r",
-                  "pm.test('Schema validation', () => {\r",
-                  "  pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get('book_schema')));\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Has correct title\", function () {\r",
-                  "    let book = pm.response.json();     \r",
-                  "    pm.expect(book.title).to.eql(\"Happy Places\")\r",
-                  "});"
-                ],
-                "type": "text/javascript",
-                "packages": {}
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "https://{{book_url}}/v1/books/{{bookId}}",
-              "protocol": "https",
-              "host": [
-                "{{book_url}}"
-              ],
-              "path": [
-                "v1",
-                "books",
-                "{{bookId}}"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "{{book_url}}/v1/books/update (Success)",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Status code is 200\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  " \r",
-                  "pm.test('Schema validation', () => {\r",
-                  "    pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get(\"book_updated_schema\")));\r",
-                  "});"
-                ],
-                "type": "text/javascript",
-                "packages": {}
-              }
-            }
-          ],
-          "request": {
-            "method": "PUT",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{ \r\n  \"Id\": \"{{bookId}}\",\r\n  \"title\": \"Happy Placesss\",\r\n  \"isbn\": \"9780241995365\",\r\n  \"authorId\": \"47417642-87d9-4047-ae13-4c721d99ab48\",\r\n  \"publisherId\": 4,\r\n  \"seriesId\": 1,\r\n  \"summary\": \"ssFizzing with romance, wit and characters to fall head over heels for, Happy Place is a gloriously feelgood novel of fake relationships and awkward holidays from the bestselling author of Book Lovers and Beach Read.\",\r\n  \"condition\": \"New\",\r\n  \"numberInStock\": 15,\r\n  \"price\": 6.99,\r\n  \"discount\": 2,\r\n  \"discountTypeId\": 1\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "https://{{book_url}}/v1/books/update",
-              "protocol": "https",
-              "host": [
-                "{{book_url}}"
-              ],
-              "path": [
-                "v1",
-                "books",
-                "update"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "{{book_url}}/v1/books/update (Fail - Duplicate Isbn)",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Status code is 400\", function () {\r",
-                  "    pm.response.to.have.status(400);\r",
-                  "});\r",
-                  " \r",
-                  "pm.test('Schema validation', () => {\r",
-                  "    pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get(\"book_updated_schema_fail\")));\r",
-                  "});"
-                ],
-                "type": "text/javascript",
-                "packages": {}
-              }
-            }
-          ],
-          "request": {
-            "method": "PUT",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{ \r\n  \"Id\": \"{{bookId}}\",\r\n  \"title\": \"Happy Placesss\",\r\n  \"isbn\": \"9781398529687\",\r\n  \"authorId\": \"47417642-87d9-4047-ae13-4c721d99ab48\",\r\n  \"publisherId\": 4,\r\n  \"seriesId\": 1,\r\n  \"summary\": \"ssFizzing with romance, wit and characters to fall head over heels for, Happy Place is a gloriously feelgood novel of fake relationships and awkward holidays from the bestselling author of Book Lovers and Beach Read.\",\r\n  \"condition\": \"New\",\r\n  \"numberInStock\": 15,\r\n  \"price\": 6.99,\r\n  \"discount\": 2,\r\n  \"discountTypeId\": 1\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "https://{{book_url}}/v1/books/update",
-              "protocol": "https",
-              "host": [
-                "{{book_url}}"
-              ],
-              "path": [
-                "v1",
-                "books",
-                "update"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "{{book_url}}/v1/books/{{bookId}} (Success)",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Status code is 200\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});"
-                ],
-                "type": "text/javascript",
-                "packages": {}
-              }
-            }
-          ],
-          "request": {
-            "method": "DELETE",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "https://{{book_url}}/v1/books/{{bookId}}",
-              "protocol": "https",
-              "host": [
-                "{{book_url}}"
-              ],
-              "path": [
-                "v1",
-                "books",
-                "{{bookId}}"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "{{book_url}}/v1/books/{{bookId}} (Fail - Not Found)",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Status code is 404\", function () {\r",
-                  "    pm.response.to.have.status(404);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test('Schema validation', () => {\r",
-                  "    pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get(\"book_delete_schema_fail\")));\r",
-                  "});"
-                ],
-                "type": "text/javascript",
-                "packages": {}
-              }
-            }
-          ],
-          "request": {
-            "method": "DELETE",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "https://{{book_url}}/v1/books/{{bookId}}",
-              "protocol": "https",
-              "host": [
-                "{{book_url}}"
-              ],
-              "path": [
-                "v1",
-                "books",
-                "{{bookId}}"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    }
-  ]
+	"info": {
+		"_postman_id": "6cdfb948-4f2c-498e-bccf-a9883dafe6a4",
+		"name": "Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authorization",
+			"item": [
+				{
+					"name": "{{authorization_url}}/{version}login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0dc42615-78d0-4ede-bb9c-440612134b92",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});  \r",
+									"\r",
+									"pm.test('Schema validation', () => {\r",
+									"    pm.response.to.have.jsonSchema (JSON.parse(pm.globals.get(\"logged_in_schema\")));\r",
+									"});\r",
+									" \r",
+									"var jsonData = JSON.parse(pm.response.text()); \r",
+									"pm.environment.set(\"token\", jsonData.jwtToken);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "57c6de7c-5962-42e6-b170-2a70cfe7245a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"{{username}}\",\r\n  \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://{{authorization_url}}/v1/login"
+					},
+					"response": []
+				}
+			],
+			"id": "59e3759d-92d0-4a01-a35e-24e772d03243"
+		},
+		{
+			"name": "Book",
+			"item": [
+				{
+					"name": "{{book_url}}/v1/book/title/and (Success)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "93b3732b-d16d-46f6-bf8d-abd7b772050d",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"}); \r",
+									"\r",
+									"pm.test('Schema validation', () => {\r",
+									"  pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get('books_schema')));\r",
+									"});\r",
+									"\r",
+									"let jsonData = pm.response.json(); \r",
+									"\r",
+									"pm.test(\"Has correct title\", function () {     \r",
+									"    pm.expect(jsonData.length).to.eql(2);\r",
+									"    pm.expect(jsonData[1].title).to.eql(\"Skandar and the Chaos Trials\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "acef6d3d-bf7f-4284-b4b6-9c55cc1d13d4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": "https://{{book_url}}/v1/book/title/and"
+					},
+					"response": []
+				},
+				{
+					"name": "{{book_url}}/v1/book/add (Success)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "774cb3ce-9dc6-4ef6-b697-3599c254eb62",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});  \r",
+									"\r",
+									"pm.test('Schema validation', () => {\r",
+									"    pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get(\"book_add_schema\")));\r",
+									"});\r",
+									"\r",
+									"var jsonData = JSON.parse(pm.response.text()); \r",
+									"pm.environment.set(\"bookId\", jsonData.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "530594ce-77bb-4c4c-9ce7-f09d11f1dea2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n  \"title\": \"Happy Places\",\r\n  \"isbn\": \"9780241995365\",\r\n  \"authorId\": \"47417642-87d9-4047-ae13-4c721d99ab48\",\r\n  \"publisherId\": 4,\r\n  \"seriesId\": 1,\r\n  \"summary\": \"Fizzing with romance, wit and characters to fall head over heels for, Happy Place is a gloriously feelgood novel of fake relationships and awkward holidays from the bestselling author of Book Lovers and Beach Read.\",\r\n  \"condition\": \"Used\",\r\n  \"numberInStock\": 5,\r\n  \"price\": 7.99,\r\n  \"discount\": 3,\r\n  \"discountTypeId\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://{{book_url}}/v1/book/add"
+					},
+					"response": []
+				},
+				{
+					"name": "{{book_url}}/v1/book/add (Fail - Duplicate Isbn)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "774cb3ce-9dc6-4ef6-b697-3599c254eb62",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});  \r",
+									"\r",
+									"pm.test('Schema validation', () => {\r",
+									"    pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get(\"book_add_schema_fail\")));\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "091d587a-ee11-4350-91f0-5a80065c482c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n  \"title\": \"Happy Places\",\r\n  \"isbn\": \"9780241995365\",\r\n  \"authorId\": \"47417642-87d9-4047-ae13-4c721d99ab48\",\r\n  \"publisherId\": 4,\r\n  \"seriesId\": 1,\r\n  \"summary\": \"Fizzing with romance, wit and characters to fall head over heels for, Happy Place is a gloriously feelgood novel of fake relationships and awkward holidays from the bestselling author of Book Lovers and Beach Read.\",\r\n  \"condition\": \"Used\",\r\n  \"numberInStock\": 5,\r\n  \"price\": 7.99,\r\n  \"discount\": 3,\r\n  \"discountTypeId\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://{{book_url}}/v1/book/add"
+					},
+					"response": []
+				},
+				{
+					"name": "{{book_url}}/v1/book/{{bookId}} (Success)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e6f203a2-7ef7-47ad-a4c2-423158949ddc",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"}); \r",
+									"\r",
+									"pm.test('Schema validation', () => {\r",
+									"  pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get('book_schema')));\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Has correct title\", function () {\r",
+									"    let book = pm.response.json();     \r",
+									"    pm.expect(book.title).to.eql(\"Happy Places\")\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "7e7bcd1a-3706-44d8-937c-65dd9e8c8c27",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": "https://{{book_url}}/v1/book/{{bookId}}"
+					},
+					"response": []
+				},
+				{
+					"name": "{{book_url}}/v1/books/update (Success)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1d771126-0ee9-4161-be07-b29506c4a22c",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									" \r",
+									"pm.test('Schema validation', () => {\r",
+									"    pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get(\"book_updated_schema\")));\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "99515b9b-67ec-4ee5-b4b8-c199b5fec3b9",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n  \"Id\": \"{{bookId}}\",\r\n  \"title\": \"Happy Placesss\",\r\n  \"isbn\": \"9780241995365\",\r\n  \"authorId\": \"47417642-87d9-4047-ae13-4c721d99ab48\",\r\n  \"publisherId\": 4,\r\n  \"seriesId\": 1,\r\n  \"summary\": \"ssFizzing with romance, wit and characters to fall head over heels for, Happy Place is a gloriously feelgood novel of fake relationships and awkward holidays from the bestselling author of Book Lovers and Beach Read.\",\r\n  \"condition\": \"New\",\r\n  \"numberInStock\": 15,\r\n  \"price\": 6.99,\r\n  \"discount\": 2,\r\n  \"discountTypeId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://{{book_url}}/v1/books/update"
+					},
+					"response": []
+				},
+				{
+					"name": "{{book_url}}/v1/books/update (Fail - Duplicate Isbn)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1d771126-0ee9-4161-be07-b29506c4a22c",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									" \r",
+									"pm.test('Schema validation', () => {\r",
+									"    pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get(\"book_updated_schema_fail\")));\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "9bf3dd44-1804-4fd8-ac11-39b2716d1e6f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n  \"Id\": \"{{bookId}}\",\r\n  \"title\": \"Happy Placesss\",\r\n  \"isbn\": \"9781398529687\",\r\n  \"authorId\": \"47417642-87d9-4047-ae13-4c721d99ab48\",\r\n  \"publisherId\": 4,\r\n  \"seriesId\": 1,\r\n  \"summary\": \"ssFizzing with romance, wit and characters to fall head over heels for, Happy Place is a gloriously feelgood novel of fake relationships and awkward holidays from the bestselling author of Book Lovers and Beach Read.\",\r\n  \"condition\": \"New\",\r\n  \"numberInStock\": 15,\r\n  \"price\": 6.99,\r\n  \"discount\": 2,\r\n  \"discountTypeId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://{{book_url}}/v1/books/update"
+					},
+					"response": []
+				},
+				{
+					"name": "{{book_url}}/v1/books/{{bookId}} (Success)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3e3c2885-b80b-4e31-9914-1dbb46c715ef",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "53494f26-9c52-4902-b827-5718e874dd51",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": "https://{{book_url}}/v1/books/{{bookId}}"
+					},
+					"response": []
+				},
+				{
+					"name": "{{book_url}}/v1/books/{{bookId}} (Fail - Not Found)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3e3c2885-b80b-4e31-9914-1dbb46c715ef",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test('Schema validation', () => {\r",
+									"    pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get(\"book_delete_schema_fail\")));\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "f39a2187-d160-4bf8-8e93-3e7b8bc00a0f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": "https://{{book_url}}/v1/books/{{bookId}}"
+					},
+					"response": []
+				}
+			],
+			"id": "bc0f1f7a-968c-4fff-8658-65804322c790"
+		}
+	]
 }
