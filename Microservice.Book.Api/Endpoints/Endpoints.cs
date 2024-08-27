@@ -18,7 +18,7 @@ public static class Endpoints
 {
     public static void ConfigureRoutes(this WebApplication webApplication)
     {
-        var bookGroup = webApplication.MapGroup("v{version:apiVersion}/books").WithTags("book");
+        var bookGroup = webApplication.MapGroup("v{version:apiVersion}/book").WithTags("book");
 
         bookGroup.MapGet("/{id}", async ([FromRoute] Guid id, [FromServices] IMediator mediator) =>
         {
