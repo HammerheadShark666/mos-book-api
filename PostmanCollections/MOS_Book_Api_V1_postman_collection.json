@@ -242,7 +242,7 @@
 					"response": []
 				},
 				{
-					"name": "{{book_url}}/v1/books/update (Success)",
+					"name": "{{book_url}}/v1/book/update (Success)",
 					"event": [
 						{
 							"listen": "test",
@@ -283,12 +283,12 @@
 								}
 							}
 						},
-						"url": "https://{{book_url}}/v1/books/update"
+						"url": "https://{{book_url}}/v1/book/update"
 					},
 					"response": []
 				},
 				{
-					"name": "{{book_url}}/v1/books/update (Fail - Duplicate Isbn)",
+					"name": "{{book_url}}/v1/book/update (Fail - Duplicate Isbn)",
 					"event": [
 						{
 							"listen": "test",
@@ -329,12 +329,12 @@
 								}
 							}
 						},
-						"url": "https://{{book_url}}/v1/books/update"
+						"url": "https://{{book_url}}/v1/book/update"
 					},
 					"response": []
 				},
 				{
-					"name": "{{book_url}}/v1/books/{{bookId}} (Success)",
+					"name": "{{book_url}}/v1/book/{{bookId}} (Success)",
 					"event": [
 						{
 							"listen": "test",
@@ -363,12 +363,12 @@
 								"type": "text"
 							}
 						],
-						"url": "https://{{book_url}}/v1/books/{{bookId}}"
+						"url": "https://{{book_url}}/v1/book/{{bookId}}"
 					},
 					"response": []
 				},
 				{
-					"name": "{{book_url}}/v1/books/{{bookId}} (Fail - Not Found)",
+					"name": "{{book_url}}/v1/book/{{bookId}} (Fail - Not Found)",
 					"event": [
 						{
 							"listen": "test",
@@ -401,7 +401,7 @@
 								"type": "text"
 							}
 						],
-						"url": "https://{{book_url}}/v1/books/{{bookId}}"
+						"url": "https://{{book_url}}/v1/book/{{bookId}}"
 					},
 					"response": []
 				}
