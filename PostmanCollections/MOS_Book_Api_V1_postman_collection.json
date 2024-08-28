@@ -65,7 +65,7 @@
       "name": "Book",
       "item": [
         {
-          "name": "{{book_url}}/v1/books/title/and (Success)",
+          "name": "{{book_url}}/v1/book/title/and (Success)",
           "event": [
             {
               "listen": "test",
@@ -101,7 +101,7 @@
               }
             ],
             "url": {
-              "raw": "https://{{book_url}}/v1/books/title/and",
+              "raw": "https://{{book_url}}/v1/book/title/and",
               "protocol": "https",
               "host": [
                 "{{book_url}}"
@@ -117,7 +117,7 @@
           "response": []
         },
         {
-          "name": "{{book_url}}/v1/books/add (Success)",
+          "name": "{{book_url}}/v1/book/add (Success)",
           "event": [
             {
               "listen": "test",
@@ -157,7 +157,7 @@
               }
             },
             "url": {
-              "raw": "https://{{book_url}}/v1/books/add",
+              "raw": "https://{{book_url}}/v1/book/add",
               "protocol": "https",
               "host": [
                 "{{book_url}}"
@@ -172,7 +172,7 @@
           "response": []
         },
         {
-          "name": "{{book_url}}/v1/books/add (Fail - Duplicate Isbn)",
+          "name": "{{book_url}}/v1/book/add (Fail - Duplicate Isbn)",
           "event": [
             {
               "listen": "test",
@@ -209,7 +209,7 @@
               }
             },
             "url": {
-              "raw": "https://{{book_url}}/v1/books/add",
+              "raw": "https://{{book_url}}/v1/book/add",
               "protocol": "https",
               "host": [
                 "{{book_url}}"
@@ -224,7 +224,7 @@
           "response": []
         },
         {
-          "name": "{{book_url}}/v1/books/{{bookId}} (Success)",
+          "name": "{{book_url}}/v1/book/{{bookId}} (Success)",
           "event": [
             {
               "listen": "test",
@@ -258,7 +258,7 @@
               }
             ],
             "url": {
-              "raw": "https://{{book_url}}/v1/books/{{bookId}}",
+              "raw": "https://{{book_url}}/v1/book/{{bookId}}",
               "protocol": "https",
               "host": [
                 "{{book_url}}"
@@ -273,7 +273,7 @@
           "response": []
         },
         {
-          "name": "{{book_url}}/v1/books/update (Success)",
+          "name": "{{book_url}}/v1/book/update (Success)",
           "event": [
             {
               "listen": "test",
@@ -310,7 +310,7 @@
               }
             },
             "url": {
-              "raw": "https://{{book_url}}/v1/books/update",
+              "raw": "https://{{book_url}}/v1/book/update",
               "protocol": "https",
               "host": [
                 "{{book_url}}"
@@ -325,7 +325,7 @@
           "response": []
         },
         {
-          "name": "{{book_url}}/v1/books/update (Fail - Duplicate Isbn)",
+          "name": "{{book_url}}/v1/book/update (Fail - Duplicate Isbn)",
           "event": [
             {
               "listen": "test",
@@ -362,7 +362,7 @@
               }
             },
             "url": {
-              "raw": "https://{{book_url}}/v1/books/update",
+              "raw": "https://{{book_url}}/v1/book/update",
               "protocol": "https",
               "host": [
                 "{{book_url}}"
@@ -377,7 +377,7 @@
           "response": []
         },
         {
-          "name": "{{book_url}}/v1/books/{{bookId}} (Success)",
+          "name": "{{book_url}}/v1/book/{{bookId}} (Success)",
           "event": [
             {
               "listen": "test",
@@ -402,7 +402,7 @@
               }
             ],
             "url": {
-              "raw": "https://{{book_url}}/v1/books/{{bookId}}",
+              "raw": "https://{{book_url}}/v1/book/{{bookId}}",
               "protocol": "https",
               "host": [
                 "{{book_url}}"
@@ -417,7 +417,7 @@
           "response": []
         },
         {
-          "name": "{{book_url}}/v1/books/{{bookId}} (Fail - Not Found)",
+          "name": "{{book_url}}/v1/book/{{bookId}} (Fail - Not Found)",
           "event": [
             {
               "listen": "test",
@@ -446,7 +446,7 @@
               }
             ],
             "url": {
-              "raw": "https://{{book_url}}/v1/books/{{bookId}}",
+              "raw": "https://{{book_url}}/v1/book/{{bookId}}",
               "protocol": "https",
               "host": [
                 "{{book_url}}"
