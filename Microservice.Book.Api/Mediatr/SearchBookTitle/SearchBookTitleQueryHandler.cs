@@ -7,12 +7,9 @@ namespace Microservice.Book.Api.MediatR.SearchBookTitle;
 
 public class SearchBookTitleQueryHandler(IBookRepository bookRepository, IMapper mapper) : IRequestHandler<SearchBookTitleRequest, SearchBookTitleResponse>
 {
-    private IBookRepository _bookRepository { get; set; } = bookRepository;
-    private IMapper _mapper { get; set; } = mapper;
-
     public async Task<SearchBookTitleResponse> Handle(SearchBookTitleRequest request, CancellationToken cancellationToken)
     {
-        var books = await _bookRepository.SearchTitleAsync(request.Criteria) ?? throw new NotFoundException($"Books not found for id - '{request.Criteria}'");
-        return _mapper.Map<SearchBookTitleResponse>(books);
+        var books = await bookRepository.SearchTitleAsync(request.Criteria) ?? throw new NotFoundException($"Books not found for id - '{request.Criteria}'");
+        return mapper.Map<SearchBookTitleResponse>(books);
     }
 }

@@ -123,8 +123,11 @@ public class UpdateBookMediatrTests
                 await mediator.Send(updateBookRequest);
             });
 
-        Assert.That(validationException.Errors.Count, Is.EqualTo(1));
-        Assert.That(validationException.Errors.ElementAt(0).ErrorMessage, Is.EqualTo("A book with this isbn already exists"));
+        Assert.Multiple(() =>
+        {
+            Assert.That(validationException.Errors.Count, Is.EqualTo(1));
+            Assert.That(validationException.Errors.ElementAt(0).ErrorMessage, Is.EqualTo("A book with this isbn already exists"));
+        });
     }
 
     [Test]
@@ -142,8 +145,11 @@ public class UpdateBookMediatrTests
             await mediator.Send(updateBookRequest);
         });
 
-        Assert.That(validationException.Errors.Count, Is.EqualTo(1));
-        Assert.That(validationException.Errors.ElementAt(0).ErrorMessage, Is.EqualTo("Invalid ISBN code"));
+        Assert.Multiple(() =>
+        {
+            Assert.That(validationException.Errors.Count, Is.EqualTo(1));
+            Assert.That(validationException.Errors.ElementAt(0).ErrorMessage, Is.EqualTo("Invalid ISBN code"));
+        });
     }
 
     [Test]

@@ -9,22 +9,18 @@ public class UpdateBookCommandHandler(IBookRepository bookRepository,
                                       ILogger<UpdateBookCommandHandler> logger,
                                       IMapper mapper) : IRequestHandler<UpdateBookRequest, UpdateBookResponse>
 {
-    private IBookRepository _bookRepository { get; set; } = bookRepository;
-    private IMapper _mapper { get; set; } = mapper;
-    private ILogger<UpdateBookCommandHandler> _logger { get; set; } = logger;
-
     public async Task<UpdateBookResponse> Handle(UpdateBookRequest updateBookRequest, CancellationToken cancellationToken)
     {
-        var existingBook = await _bookRepository.ByIdAsync(updateBookRequest.Id);
+        var existingBook = await bookRepository.ByIdAsync(updateBookRequest.Id);
         if (existingBook == null)
         {
-            _logger.LogError($"Book not found - {updateBookRequest.Id}");
+            logger.LogError("Book not found - {updateBookRequest.Id}", updateBookRequest.Id);
             throw new NotFoundException("Book not found.");
         }
 
-        existingBook = _mapper.Map(updateBookRequest, existingBook);
+        existingBook = mapper.Map(updateBookRequest, existingBook);
 
-        await _bookRepository.UpdateAsync(existingBook);
+        await bookRepository.UpdateAsync(existingBook);
 
         return new UpdateBookResponse("Book Updated.");
     }
