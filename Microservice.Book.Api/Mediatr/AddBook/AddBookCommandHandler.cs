@@ -7,13 +7,11 @@ namespace Microservice.Book.Api.MediatR.AddBook;
 public class AddBookCommandHandler(IBookRepository bookRepository,
                                    IMapper mapper) : IRequestHandler<AddBookRequest, AddBookResponse>
 {
-    private IBookRepository _bookRepository { get; set; } = bookRepository;
-    private IMapper _mapper { get; set; } = mapper;
 
     public async Task<AddBookResponse> Handle(AddBookRequest addBookRequest, CancellationToken cancellationToken)
     {
-        var book = _mapper.Map<Api.Domain.Book>(addBookRequest);
-        await _bookRepository.AddAsync(book);
+        var book = mapper.Map<Api.Domain.Book>(addBookRequest);
+        await bookRepository.AddAsync(book);
 
         return new AddBookResponse(book.Id);
     }

@@ -17,8 +17,3 @@ public class BookDbContext(DbContextOptions<BookDbContext> options) : DbContext(
         modelBuilder.Entity<Domain.Book>().HasData(DefaultData.GetBookDefaultData());
     }
 }
-
-//add-migration
-//update-database
-
-//azurite --silent --location c:\azurite --debug c:\azurite\debug.log

@@ -6,8 +6,6 @@ namespace Microservice.Book.Api.Grpc;
 
 public class BookService(IBookRepository bookRepository) : BookGrpc.BookGrpcBase
 {
-    private readonly IBookRepository _bookRepository = bookRepository;
-
     public override async Task<ListBookResponse> GetBooks(ListBookRequest request, ServerCallContext context)
     {
         ListBookResponse books = new();
@@ -16,7 +14,7 @@ public class BookService(IBookRepository bookRepository) : BookGrpc.BookGrpcBase
         {
             var id = bookRequest.Id;
 
-            var book = await _bookRepository.ByIdAsync(new Guid(id));
+            var book = await bookRepository.ByIdAsync(new Guid(id));
             if (book != null)
             {
                 books.BookResponses.Add(new BookResponse()
