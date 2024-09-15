@@ -5,10 +5,13 @@ using Microservice.Book.Api.Data.Context;
 using Microservice.Book.Api.Data.Repository;
 using Microservice.Book.Api.Data.Repository.Interfaces;
 using Microservice.Book.Api.Helpers;
+using Microservice.Book.Api.Helpers.Exceptions;
 using Microservice.Book.Api.Helpers.Interfaces;
+using Microservice.Book.Api.Helpers.Providers;
 using Microservice.Book.Api.Helpers.Swagger;
 using Microservice.Book.Api.MediatR.AddBook;
 using Microservice.Book.Api.Middleware;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
@@ -42,11 +45,22 @@ public static class IServiceCollectionExtensions
         services.AddAutoMapper(Assembly.GetAssembly(typeof(AddBookMapper)));
     }
 
-    public static void ConfigureDatabaseContext(this IServiceCollection services, ConfigurationManager configuration)
+    public static void ConfigureSqlServer(this IServiceCollection services, IConfiguration configuration, IWebHostEnvironment environment)
     {
-        services.AddDbContextFactory<BookDbContext>(options =>
-            options.UseSqlServer(configuration.GetConnectionString(Helpers.Constants.DatabaseConnectionString),
-            options => options.EnableRetryOnFailure()));
+        if (environment.IsProduction())
+        {
+            var connectionString = configuration.GetConnectionString(Constants.AzureDatabaseConnectionString)
+                    ?? throw new DatabaseConnectionStringNotFound("Production database connection string not found.");
+
+            AddDbContextFactory(services, SqlAuthenticationMethod.ActiveDirectoryManagedIdentity, new ProductionAzureSQLProvider(), connectionString);
+        }
+        else if (environment.IsDevelopment())
+        {
+            var connectionString = configuration.GetConnectionString(Constants.LocalDatabaseConnectionString)
+                    ?? throw new DatabaseConnectionStringNotFound("Development database connection string not found.");
+
+            AddDbContextFactory(services, SqlAuthenticationMethod.ActiveDirectoryServicePrincipal, new DevelopmentAzureSQLProvider(), connectionString);
+        }
     }
 
     public static void ConfigureMediatr(this IServiceCollection services)
@@ -88,5 +102,17 @@ public static class IServiceCollectionExtensions
         services.AddGrpc();
         services.AddGrpcReflection();
         services.AddGrpc().AddJsonTranscoding();
+    }
+
+    private static void AddDbContextFactory(IServiceCollection services, SqlAuthenticationMethod sqlAuthenticationMethod, SqlAuthenticationProvider sqlAuthenticationProvider, string connectionString)
+    {
+        services.AddDbContextFactory<BookDbContext>(options =>
+        {
+            SqlAuthenticationProvider.SetProvider(
+                    sqlAuthenticationMethod,
+                    sqlAuthenticationProvider);
+            var sqlConnection = new SqlConnection(connectionString);
+            options.UseSqlServer(sqlConnection);
+        });
     }
 }
